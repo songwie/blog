@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+  <definition name="uncaughtException" extends="blog">
+      <put-attribute name="body" value="/WEB-INF/views/uncaughtException.jsp" />
+  </definition>
+  <definition name="resourceNotFound" extends="blog">
+      <put-attribute name="body" value="/WEB-INF/views/resourceNotFound.jsp" />
+  </definition>
+
+  <!-- 功能 -->
+  <!-- 登录相关 -->
+  <definition name="newlogin" template="/login/newLogin.jsp"></definition>
+  <!-- 首页 -->
+  <definition name="firstpage_view" extends="blog">
+      <put-attribute name="body" value="/firstpage/fristpage.jsp" />
+  </definition>
+
+  <!-- 关于作者 -->
+  <definition name="aboutsw_view" extends="blog">
+      <put-attribute name="body" value="/about/about.jsp" />
+  </definition>
+
+  <!-- 项目列表 -->
+  <definition name="items_view" extends="blog">
+      <put-attribute name="body" value="http://74.125.195.68/" />
+  </definition>
+
+  <!-- 登陆 -->
+  <definition name="login_view" extends="login">
+      <put-attribute name="body" value="/login/login.jsp" />
+  </definition>
+
+</tiles-definitions>
