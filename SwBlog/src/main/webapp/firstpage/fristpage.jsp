@@ -7,7 +7,7 @@
 
 <html>
 <head>
-    
+
 
 </head>
 <body class="home blog logged-in admin-bar custom-font-enabled single-author customize-support">
@@ -81,15 +81,10 @@
 							<span class="deactive">首页</span>
 							<span class="deactive">上一页</span>
 							<span class="currentpage">
-									<span href="/blog/pages1">1</span>
-
-									<a class="paginator" href="http://www.songwie.com/blog/pages2">2</a>
-									<a class="paginator" href="http://www.songwie.com/blog/pages3">3</a>
-									<a class="paginator" href="http://www.songwie.com/blog/pages4">4</a>
-									<a class="paginator" href="http://www.songwie.com/blog/pages5">5</a>
-									<a href="http://www.songwie.com/blog/pages2">下一页</a>
-									<a href="http://www.songwie.com/blog/pages7">尾页</a>
-								 共7页.
+									<span href="/blog/pages">1</span>
+									<a href="/blog/pages">下一页</a>
+									<a href="/blog/pages">尾页</a>
+								 共1页.
 							</span>
 					</span>
 				</div>
