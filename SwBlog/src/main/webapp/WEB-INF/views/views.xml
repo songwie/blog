@@ -29,6 +29,11 @@
       <put-attribute name="body" value="http://74.125.195.68/" />
   </definition>
 
+  <!-- 明细 -->
+  <definition name="article_view" extends="blog">
+      <put-attribute name="body" value="/article/articleDetail.jsp" />
+  </definition>
+
   <!-- 登陆 -->
   <definition name="login_view" extends="login">
       <put-attribute name="body" value="/login/login.jsp" />
