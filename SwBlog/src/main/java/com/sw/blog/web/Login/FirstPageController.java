@@ -51,6 +51,11 @@ public class FirstPageController {
         list.add(article);
 
         model.addAttribute("articleList", list);
+        model.addAttribute("articleid", id);
+
+        //查询文章评论
+        List<Map<String, Object>>  replys = articleService.getReplys(id);
+        model.addAttribute("replyList", replys);
 
     	return "article_view";
     }

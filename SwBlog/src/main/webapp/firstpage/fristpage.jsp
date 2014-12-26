@@ -63,19 +63,38 @@
 			    </c:forEach>
 
 				<!-- #post -->
-				<div class="pagination">
-					<span class="step-links">
-							<span class="deactive">首页</span>
-							<span class="deactive">上一页</span>
-							<span class="currentpage">
-									<span href="/blog/pages">1</span>
-									<a href="/blog/pages">下一页</a>
-									<a href="/blog/pages">尾页</a>
-								 共1页.
-							</span>
-					</span>
+				<!-- <div class="pagination">
+				    <span class="step-links">
+				        {% if page.has_previous %}
+				            <a href="/blog/pages">首页</a>
+				            <a href="/blog/pages{{ posts.previous_page_number }}">上一页</a>
+				        {%else%}
+				            <span class='deactive'>首页</span>
+				            <span class='deactive'>上一页</span>
+				        {% endif %}
+				        {% for i in page.paginator.page_range_ext %}
+				            {%if i = page.number %}
+				                <span class='currentpage'>
+				                <span href='/blog/pages{{i}}'>{{i}}</span>
+				            {%else%}
+				            <a class='paginator' href='/blog/pages{{i}}'>{{i}}</a>
+				            {%endif%}
+				        {% endfor%}
+				        {% if page.has_next %}
+				            <a href="/blog/pages{{ page.next_page_number }}">下一页</a>
+				            <a href="/blog/pages{{ page.paginator.num_pages }}">尾页</a>
+				        {%else%}
+				            <span class='deactive'>下一页</span>
+				            <span class='deactive'>尾页</span>
+
+				        {% endif %}
+				         共{{ page.paginator.num_pages }}页.
+
+				    </span>
 				</div>
+				 -->
 				<!-- #page nav -->
+
 			</div><!-- #content -->
 		</div><!-- #primary -->
 

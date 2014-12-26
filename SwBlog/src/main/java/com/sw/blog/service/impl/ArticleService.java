@@ -26,14 +26,14 @@ public class ArticleService{
 	public List<Map<String, Object>> getArticles(String start,String limit,StringHolder total) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
-		if(start==null||start.equals("")){
+		if(start==null||start.equals("")||start.equals("null")){
 			start = "0";
 		}
-		if(limit==null||limit.equals("")){
-			limit = "10";
+		if(limit==null||limit.equals("")||limit.equals("null")){
+			limit = "2";
 		}
 
-		List data = dao.getArticleList(Integer.valueOf(start),Integer.valueOf(start));
+		List data = dao.getArticleList(Integer.valueOf(start),Integer.valueOf(limit));
 		List<Object> totalList = dao.getArticleTotal();
 
 		for(int i=0;i<data.size();i++){
@@ -74,6 +74,50 @@ public class ArticleService{
 
 
 		return map;
+	}
+
+	public void saveRepy(String articleid,String replyid, String comment, String author, String contact) {
+		String CODE = "1001";
+		String code = CODE;
+		String fullCode = CODE;
+		Object maxCode = dao.getMaxCodeByArticleId(articleid);
+		if(maxCode!=null){
+			code = String.valueOf(Integer.valueOf(CODE) + Integer.valueOf(maxCode.toString()));
+			fullCode = code;
+		}
+		String level = "1";
+		if(replyid!=null&&!replyid.equals("0")){
+           Object[] farentObj = dao.getReplyById(replyid);
+
+           String farentFullCode = farentObj[1].toString();
+           code = String.valueOf(Integer.valueOf(CODE) + Integer.valueOf(replyid));
+           fullCode = farentFullCode + "-" + code;
+           level = "2";
+		}
+		dao.saveRepy(articleid,replyid,code,fullCode,comment,author,contact ,level);
+
+	}
+
+	public List<Map<String, Object>> getReplys(String id) {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+		List  data = dao.getReplys(id);
+
+		for(int i=0;i<data.size();i++){
+			Map<String,Object> map = new HashMap<String, Object>();
+			Object[] objects = (Object[]) data.get(i);
+			map.put("id", objects[0]==null?"":objects[0]);
+			map.put("level", objects[2]==null?"":objects[2]);
+			map.put("reply_author", objects[5]==null?"":objects[5]);
+			map.put("replydate", objects[4]==null?"":objects[4]);
+			map.put("articleid", objects[3]==null?"":objects[3]);
+			map.put("replyMsg", objects[7]==null?"":objects[7]);
+			map.put("responAuthor", objects[1]==null?"":objects[1]);
+
+			list.add(map);
+		}
+
+		return list;
 	}
 
 

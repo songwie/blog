@@ -22,7 +22,7 @@
                     </li>
 
                     <li class="page_item page-item-13">
-                        <a href="${home}items">项目</a>
+                        <a href="${home}items">文章</a>
                     </li>
 
                     <li class="page_item page-item-8">

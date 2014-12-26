@@ -55,91 +55,107 @@
 
 				<div id="comments" class="comments-area">
 				    <!-- .commentlist -->
-					<ol class="commentlist">
-						<div class="comments-list">
-				          <li>
-				             <div class="single">
-								<img class="round_img avatar" alt="" src="${home}resources/img/reply.png">
-					            <div class="comment-item" id="comment-122" style="padding:0 0 0 5px;">
-							        <div class="info">
-										<a class="uname" href="#" rel="external nofollow">流星泪</a>
-									    <span class="timestamp">
-											<a href="http://evilbinary.org/blog/?p=41#comment-122">
-												<time datetime="2014/12/09 09:24:13">2014/12/09 09:24:13</time>
-											</a>
-										</span>
-									    <span class="reply">
-										   <a class="comment-reply-link" href="article/reply/${id}"
-										       onclick='return addComment.moveForm("comment-122", "122", "respond", "41")'>回复</a>
-						 			    </span>
-							 		</div>
-					 		       <div class="body">
-					 			      ${replyMsg}
-					 		       </div>
-					           </div>
-				             </div> <!--#single##-->
-				          </li><!-- #comment-## -->
-				          <ol class="children">
-					            <li>
-					               <div class="single">
-									  <img class="round_img " alt="" src="${home}resources/img/reply.png" height="32" width="32">
-						              <div class="comment-item" id="comment-123" style="padding:0 0 0 5px;">
-							            <div class="info">
-										    <a class="uname" href="http://evilbinary.org/" rel="external nofollow">evilbinary</a>
-											<span class="timestamp">
-												<a href="http://evilbinary.org/blog/?p=41#comment-123">
-													<time datetime="2014/12/09 09:43:06">2014/12/09 09:43:06</time>
-												</a>
-											</span>
-											<span class="reply">
-												<a class="comment-reply-link" href="http://evilbinary.org/blog/?p=41&amp;replytocom=123#respond" onclick='return addComment.moveForm("comment-123", "123", "respond", "41")'>回复</a>
-								 			</span>
-								 		</div>
-								 		<div class="body">
-								 			自己找一下官方的驱动，可能可以。
-								 		</div>
-									</div>
-					              </div> <!--#single##-->
-					            </li><!-- #comment-## -->
-				          </ol>
-					</ol>
+				    <c:forEach var="data" items="${replyList}" varStatus="stauts">
+				        <ol class="commentlist">
+							<div class="comments-list">
+		                        <c:choose>
+		                        <c:when test="${data.level == 1}">
+	                               <li>
+						             <div class="single">
+										<img class="round_img avatar" alt="" src="${home}resources/img/reply.png">
+							            <div class="comment-item" id="comment-${data.id}" style="padding:0 0 0 5px;">
+									        <div class="info">
+												<a class="uname" href="article/reply/${id}#${data.id}" rel="external nofollow">${data.reply_author}</a>
+											    <span class="timestamp">
+													<c:choose>
+			                                            <c:when test="${data.level != 1}">
+                                                                                                                                                                  回复<a class="uname" href="article/reply/${id}#${data.id}" rel="external nofollow"> ${data.responAuthor}</a>
+														</c:when>
+			                                            <c:otherwise>
+			                                            </c:otherwise>
+		                                            </c:choose>
+		                                            <a href="article/reply/${id}#${data.id}">
+														<time datetime="2014/12/09 09:24:13">在${data.replydate}</time>
+													</a>
+												</span>
+											    <span class="reply">
+												   <a class="comment-reply-link" href="article/reply/${id}#${data.id}"
+												     onclick='return addComment.moveForm("comment-${data.id}", "${data.id}", "respond", "${data.articleid}")'>----回复</a>
+								 			    </span>
+									 		</div>
+							 		       <div class="body">
+							 			      ${data.replyMsg}
+							 		       </div>
+							           </div>
+						             </div> <!--#single##-->
+						           </li><!-- #comment-## -->
+		                        </c:when>
+		                        <c:otherwise>
+	                             	<ol class="children">
+							            <li>
+								             <div class="single">
+												<img class="round_img avatar" alt="" src="${home}resources/img/reply.png">
+									            <div class="comment-item" id="comment-${data.id}" style="padding:0 0 0 5px;">
+											        <div class="info">
+														<a class="uname" href="article/reply/${id}#${data.id}" rel="external nofollow">${data.reply_author}</a>
+													    <span class="timestamp">
+															<c:choose>
+					                                            <c:when test="${data.level != 1}">
+		                                                                                                                                                                 回复<a class="uname" href="article/reply/${id}#${data.id}" rel="external nofollow"> ${data.responAuthor}</a>
+																</c:when>
+					                                            <c:otherwise>
+					                                            </c:otherwise>
+				                                            </c:choose>
+														</span>
+														<a href="article/reply/${id}#${data.id}">
+																<time datetime="yyyy/mm/dd hh:mi:ss">在${data.replydate}</time>
+														</a>
+													    <span class="reply">
+														   <a class="comment-reply-link" href="article/reply/${id}#${data.id}"
+														       onclick='return addComment.moveForm("comment-${data.id}", "${data.id}", "respond", "${data.articleid}")'>----回复</a>
+										 			    </span>
+											 		</div>
+									 		       <div class="body">
+									 			      ${data.replyMsg}
+									 		       </div>
+									           </div>
+								             </div> <!--#single##-->
+								          </li><!-- #comment-## -->
+						            </ol>
+		                        </c:otherwise>
+		                        </c:choose>
+					      </div>
+						</ol>
+					</c:forEach>
 					<!-- .commentlist -->
+
 					<div id="respond" class="comment-respond">
 						<h3 id="reply-title" class="comment-reply-title">
 							<small>
-							<a rel="nofollow" id="cancel-comment-reply-link" href="http://evilbinary.org/blog/?p=41#respond" style="display:none;">取消回复</a>
+							<a rel="nofollow" id="cancel-comment-reply-link" href="${home}/blog/?p=41#respond" style="display:none;">取消回复</a>
 							</small>
 						</h3>
-						<form action="/blog/comment" method="post" id="commentform" class="comment-form">
-							<input name="csrfmiddlewaretoken" value="4xQUN0gP2zfaWc8VGiI0rmExiGfYrMBh" type="hidden">
+						<form action="${home}reply/comment" method="post" id="commentform" class="comment-form">
 							<p class="comment-form-comment">
-								<label for="comment">评论</label>
-								<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+								<label for="comment">评论*</label>
+								<textarea id="reply_commentid" name="comment" cols="45" rows="8" aria-required="true"></textarea>
 								<span class="required"></span>
 							</p>
 							<div>
 								<p class="comment-form-author">
 									<label for="author">昵称 <span class="required">*</span></label>
-									 <input id="author" name="author" size="30" aria-required="true" type="text">
-									 <span class="required"></span>
-								</p>
-								<p class="comment-form-email">
-									<label for="email">邮箱
-										<span class="required">*</span>
-									</label>
-
-									<input id="email" name="email" size="30" aria-required="true" type="text">
+									<input id="reply_authorid" name="author" size="30" aria-required="true" type="text">
 									<span class="required"></span>
 								</p>
-								<p class="comment-form-url"><label for="url">网站</label>
-								 <input id="url" name="url" size="30" type="text">
+								<p class="comment-form-url"><label for="url">联系信息</label>
+								 <input id="reply_contactid" name="contact" size="300" type="text">
 								 <span class="required"></span>
 								</p>
 							</div>
 						<p class="form-submit">
 							<input name="submit" id="submit" value="发表回复" type="submit">
 							<span class="required"></span>
-							<input name="comment_post_ID" value="41" id="comment_post_ID" type="hidden">
+							<input name="comment_post_ID" value="${articleid}" id="comment_post_ID" type="hidden">
 							<input name="comment_parent" id="comment_parent" value="0" type="hidden">
 						</p>
 							<input id="_wp_unfiltered_html_comment_disabled" name="_wp_unfiltered_html_comment" value="ec2af034c7" type="hidden">
