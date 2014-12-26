@@ -75,12 +75,14 @@
 			                                            </c:otherwise>
 		                                            </c:choose>
 		                                            <a href="article/reply/${id}#${data.id}">
-														<time datetime="2014/12/09 09:24:13">在${data.replydate}</time>
+														<time datetime="2014/12/09 09:24:13">在${data.replydate}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   </time>
 													</a>
 												</span>
 											    <span class="reply">
 												   <a class="comment-reply-link" href="article/reply/${id}#${data.id}"
-												     onclick='return addComment.moveForm("comment-${data.id}", "${data.id}", "respond", "${data.articleid}")'>----回复</a>
+												     onclick='return addComment.moveForm("comment-${data.id}", "${data.id}", "respond", "${data.articleid}")'>
+                                                   <i class="fa fa-comment-o  ">回复</i>
+                                                   </a>
 								 			    </span>
 									 		</div>
 							 		       <div class="body">
@@ -108,11 +110,13 @@
 				                                            </c:choose>
 														</span>
 														<a href="article/reply/${id}#${data.id}">
-																<time datetime="yyyy/mm/dd hh:mi:ss">在${data.replydate}</time>
+																<time datetime="yyyy/mm/dd hh:mi:ss">在${data.replydate}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</time>
 														</a>
 													    <span class="reply">
 														   <a class="comment-reply-link" href="article/reply/${id}#${data.id}"
-														       onclick='return addComment.moveForm("comment-${data.id}", "${data.id}", "respond", "${data.articleid}")'>----回复</a>
+														       onclick='return addComment.moveForm("comment-${data.id}", "${data.id}", "respond", "${data.articleid}")'>
+														       <i class="fa fa-comment-o  ">回复</i>
+														   </a>
 										 			    </span>
 											 		</div>
 									 		       <div class="body">
