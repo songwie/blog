@@ -20,17 +20,17 @@
   </definition>
 
   <!-- 关于作者 -->
-  <definition name="aboutsw_view" extends="blog">
+  <definition name="aboutsw_view" extends="content">
       <put-attribute name="body" value="/about/about.jsp" />
   </definition>
 
-  <!-- 项目列表 -->
-  <definition name="items_view" extends="blog">
-      <put-attribute name="body" value="http://74.125.195.68/" />
+  <!-- 技术区 -->
+  <definition name="teach_view" extends="content">
+      <put-attribute name="body" value="/teach/teachs.jsp" />
   </definition>
 
-  <!-- 明细 -->
-  <definition name="article_view" extends="blog">
+  <!-- 文章 -->
+  <definition name="article_view" extends="content">
       <put-attribute name="body" value="/article/articleDetail.jsp" />
   </definition>
 

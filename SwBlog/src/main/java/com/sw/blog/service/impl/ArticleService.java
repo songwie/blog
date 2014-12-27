@@ -53,6 +53,41 @@ public class ArticleService{
 
 		return list;
 	}
+	//最新文章列表
+	public List<Map<String, Object>> getNewArticles() {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+		List data = dao.getNewArticles(Integer.valueOf(10));
+
+		for(int i=0;i<data.size();i++){
+			Map<String,Object> map = new HashMap<String, Object>();
+			Object[] objects = (Object[]) data.get(i);
+			map.put("id", objects[0]==null?"":objects[0]);
+			map.put("title", objects[1]==null?"":objects[1]);
+
+			list.add(map);
+		}
+
+		return list;
+	}
+
+	//最新文章列表
+	public List<Map<String, Object>> getNewArticleList(String start,String limit) {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+		List data = dao.getNewArticles(Integer.valueOf(limit));
+
+		for(int i=0;i<data.size();i++){
+			Map<String,Object> map = new HashMap<String, Object>();
+			Object[] objects = (Object[]) data.get(i);
+			map.put("id", objects[0]==null?"":objects[0]);
+			map.put("title", objects[1]==null?"":objects[1]);
+
+			list.add(map);
+		}
+
+		return list;
+	}
 
 	public Map<String, Object> getArticle(String id) {
 		List data = dao.getArticleById(id);
@@ -118,6 +153,98 @@ public class ArticleService{
 		}
 
 		return list;
+	}
+	public List<Map<String, Object>> getNewReplyList() {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+		List  data = dao.getNewReplyList(Integer.valueOf(10));
+
+		for(int i=0;i<data.size();i++){
+			Map<String,Object> map = new HashMap<String, Object>();
+			Object[] objects = (Object[]) data.get(i);
+			map.put("id", objects[0]==null?"":objects[0]);
+			map.put("reply_author", objects[1]==null?"":objects[1]);
+			map.put("articleid", objects[2]==null?"":objects[2]);
+			map.put("article", objects[3]==null?"":objects[3]);
+
+			list.add(map);
+		}
+
+		return list;
+	}
+	public List<Map<String, Object>> getNewTimeList() {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+		List  data = dao.getNewTimeList(Integer.valueOf(20));
+
+		for(int i=0;i<data.size();i++){
+			Map<String,Object> map = new HashMap<String, Object>();
+			Object[] objects = (Object[]) data.get(i);
+			map.put("time", objects[0]==null?"":objects[0]);
+			map.put("count", objects[1]==null?"":objects[1]);
+
+			list.add(map);
+		}
+
+		return list;
+	}
+	public List<Map<String, Object>> getArticleTypeList() {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+		List  data = dao.getArticleTypeList();
+
+		for(int i=0;i<data.size();i++){
+			Map<String,Object> map = new HashMap<String, Object>();
+			Object[] objects = (Object[]) data.get(i);
+			map.put("id", objects[0]==null?"":objects[0]);
+			map.put("type", objects[1]==null?"":objects[1]);
+
+			list.add(map);
+		}
+
+		return list;
+	}
+	public List<Map<String, Object>> getFriendLinks() {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+		List  data = dao.getFriendLinks();
+
+		for(int i=0;i<data.size();i++){
+			Map<String,Object> map = new HashMap<String, Object>();
+			Object[] objects = (Object[]) data.get(i);
+			map.put("id", objects[0]==null?"":objects[0]);
+			map.put("name", objects[1]==null?"":objects[1]);
+			map.put("link", objects[2]==null?"":objects[2]);
+
+			list.add(map);
+		}
+
+		return list;
+	}
+	public List<Map<String, Object>> getAllArticleList(String start,String limit, String bymonth, String type) {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		if(start==null||start.equals("")||start.equals("null")){
+			start = "0";
+		}
+		if(limit==null||limit.equals("")||limit.equals("null")){
+			limit = "10";
+		}
+		List  data = dao.getAllArticleList(Integer.valueOf(start),Integer.valueOf(limit),bymonth,type);
+
+		for(int i=0;i<data.size();i++){
+			Map<String,Object> map = new HashMap<String, Object>();
+			Object[] objects = (Object[]) data.get(i);
+			map.put("id", objects[0]==null?"":objects[0]);
+			map.put("title", objects[1]==null?"":objects[1]);
+			map.put("articleTypeName", objects[5]==null?"":objects[5]);
+			map.put("articleDate", objects[3]==null?"":objects[3]);
+			map.put("createUser", objects[4]==null?"":objects[4]);
+
+			list.add(map);
+		}
+
+		return list;
+
 	}
 
 

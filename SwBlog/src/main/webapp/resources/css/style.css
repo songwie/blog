@@ -565,7 +565,7 @@ a:hover {
   z-index: 1030;
   -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4); 
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
 .te-site-logo {
@@ -581,26 +581,26 @@ a:hover {
     opacity: 0.75; }
 
 #te-site-nav {
-  float: left; 
+  float: left;
 }
 #te-site-nav li a {
     padding: 0 15px;
     line-height: 40px;
-    color: #666; 
+    color: #666;
     text-decoration:none;
-    
+
     white-space:nowrap;
     text-overflow:ellipsis;
     overflow:hidden;
 }
 #te-site-nav li a:hover {
       background: none;
-      color: #999; 
+      color: #999;
 }
   #te-site-nav li.active a {
     background: none;
     color: #333;
-    font-weight: bold; 
+    font-weight: bold;
     display: block;
           border-bottom: solid 1px #FFFFFF;
 
@@ -610,7 +610,7 @@ a:hover {
   background: #467b96;
 }
 .te-headline a {
-    color: #FFF; 
+    color: #FFF;
 }
 .te-headline a:hover {
       text-decoration: none;
@@ -619,7 +619,7 @@ a:hover {
   margin: 0;
   padding: 25px 0;
   font-size: 24px;
-  font-weight: normal; 
+  font-weight: normal;
 }
 
 
@@ -841,7 +841,7 @@ article.sticky .featured-post {
 .mu_register {
 	line-height: 1.714285714;
 
-	
+
 }
 .entry-content h1,
 .comment-content h1,
@@ -1701,6 +1701,10 @@ img#wpstats {
 	.site-content {
 		float: left;
 		width: 65.104166667%;
+	}
+	.site-contentall {
+		float: left;
+		width: 100%;
 	}
 	body.template-front-page .site-content,
 	body.attachment .site-content,

@@ -31,6 +31,18 @@ public class ArticleDao {
 
 		return query.getResultList();
 	}
+	public List getNewArticles(Integer limit) {
+		String sql = "select t.id,t.title  "
+	               +" from tblog_article t   "
+				   +" where 1=1"
+	               +" order by t.create_time desc ";
+		Query query = entityManager.createNativeQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(limit);
+
+		return query.getResultList();
+	}
 
 	public List<Object> getArticleTotal() {
 		String sql = "select count(1) from tblog_article t where 1=1";
@@ -101,6 +113,19 @@ public class ArticleDao {
 		return query.getResultList();
 	}
 
+	public List getNewReplyList(Integer limit) {
+		String sql = "  select t.id,t.reply_author,t.article_id,b.title "
+                    +"  from tblog_ariticle_reply t left join tblog_article b on t.article_id=b.id  "
+                    +"  where 1=1 "
+	                +"  order by t.reply_date ";
+
+		Query query = entityManager.createNativeQuery(sql);
+		query.setFirstResult(0);
+		query.setMaxResults(limit);
+
+		return query.getResultList();
+	}
+
 	public Object getMaxCodeByArticleId(String articleid) {
 		String sql = "  select max(t.id) "
                 +"  from tblog_ariticle_reply t "
@@ -111,6 +136,64 @@ public class ArticleDao {
 		query.setParameter("articleid", articleid);
 
 		return query.getSingleResult();
+	}
+
+	public List getNewTimeList(Integer limit) {
+		String sql = " select DATE_FORMAT(t.create_time, '%Y-%m'),count(1) "
+				    +" from tblog_article t "
+	                +" group by  DATE_FORMAT(t.create_time, '%Y-%m')   ";
+
+		Query query = entityManager.createNativeQuery(sql);
+		query.setFirstResult(0);
+		query.setMaxResults(limit);
+
+		return query.getResultList();
+	}
+
+	public List getArticleTypeList() {
+		String sql = " select id,name "
+			    +" from tblog_ariticle_type t " ;
+
+		Query query = entityManager.createNativeQuery(sql);
+
+		return query.getResultList();
+	}
+
+	public List getFriendLinks() {
+		String sql = " select id,name,url "
+			    +" from tblog_links t " ;
+
+		Query query = entityManager.createNativeQuery(sql);
+
+		return query.getResultList();
+	}
+
+	public List getAllArticleList(Integer start, Integer limit, String bymonth, String type) {
+		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,b.name  "
+	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
+				   +" where 1=1 " ;
+		if(bymonth!=null&&!bymonth.equals("")&&!bymonth.equals("null")){
+	        sql+=" and DATE_FORMAT(t.create_time, '%Y-%m')=:bymonth ";
+		}
+        if(type!=null&&!type.equals("")&&!type.equals("null")){
+	        sql+=" and b.id=:typeid ";
+		}
+
+        sql+=" order by b.id,t.create_time desc ";
+
+		Query query = entityManager.createNativeQuery(sql);
+
+		if(bymonth!=null&&!bymonth.equals("")&&!bymonth.equals("null")){
+			query.setParameter("bymonth", bymonth);
+		}
+		if(type!=null&&!type.equals("")&&!type.equals("null")){
+			query.setParameter("typeid", type);
+		}
+
+		query.setFirstResult(start);
+		query.setMaxResults(limit);
+
+		return query.getResultList();
 	}
 
 

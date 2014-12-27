@@ -7,7 +7,7 @@
 
 <body>
      <div id="main" class="wrapper">
-		<div id="primary" class="site-content">
+		<div id="primary" class="site-contentall">
 		    <div id="content" role="main">
 			     <c:forEach var="data" items="${articleList}" varStatus="stauts">
 			        <article id="post-detail-${data.id}" class="post-1 post type-post status-publish format-standard hentry category-uncategorized">

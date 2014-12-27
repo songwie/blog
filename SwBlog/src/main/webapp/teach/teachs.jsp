@@ -25,33 +25,20 @@
     <div id="main" class="wrapper">
 		<div id="primary" class="site-content">
 		    <div id="content" role="main">
-
-                <c:forEach var="data" items="${articleList}" varStatus="stauts">
+                <c:forEach var="data" items="${allArticleList}" varStatus="stauts">
 			        <article id="post-${data.id}" class="post-1 post type-post status-publish format-standard hentry category-uncategorized">
 						<header class="entry-header">
 							<h1 class="entry-title">
 								<a title="" href="${home}articlelist/${data.id}" rel="bookmark">${data.title}</a>
 							</h1>
-							<div class="comments-link">
-							    <a href="${home}articlelist/${data.id}" title="评论 ">
-								   <i class="fa fa-comment-o  "></i><span class="leave-reply">发表回复</span>
-								</a>
-							</div>
 						</header>
-
-						<div class="entry-content">
-							<p></p>
-							<p>${data.content}</p>
-						    <p></p>
-						</div>
-
 						<footer class="entry-meta">
 						发布在${data.articleTypeName}
 						 <a href="#" title="" rel="bookmark">
 								<time class="entry-date" datetime="2014/12/06 21:07:33">${data.articleDate}</time></a>
 								<span class="by-author"> by
 									<span class="author vcard">
-										<a class="url fn n" href="http://www.songwie.com/blog/author/1" title="" rel="author">${data.createUser}</a>
+										<a class="url fn n" href="#" title="" rel="author">${data.createUser}</a>
 									</span>
 								</span>
 								<span class="read-more">
@@ -101,15 +88,6 @@
 	</div><!-- #main .wrapper -->
 
 </div><!-- #page -->
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?ac378b5e8650bd43088947c93c4888a2";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
 
 </body>
 </html>
