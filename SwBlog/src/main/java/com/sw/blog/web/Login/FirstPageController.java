@@ -79,31 +79,6 @@ public class FirstPageController {
     }
 
 
-	@RequestMapping("/aboutme")
-    public String about(Model model, HttpServletRequest request){
-
-		//最新文章发表
-        List<Map<String, Object>>  newArticles = articleService.getNewArticles();
-        model.addAttribute("newArticleList", newArticles);
-
-        //最新评论
-        List<Map<String, Object>>  newReplyList = articleService.getNewReplyList();
-        model.addAttribute("newReplyList", newReplyList);
-
-        //全部归档
-        List<Map<String, Object>>  newTimeList = articleService.getNewTimeList();
-        model.addAttribute("newTimeList", newTimeList);
-
-        //全部分类
-        List<Map<String, Object>>  articleTypeList = articleService.getArticleTypeList();
-        model.addAttribute("articleTypeList", articleTypeList);
-
-        //有情链接
-        List<Map<String, Object>>  friendLinks = articleService.getFriendLinks();
-        model.addAttribute("friendLinks", friendLinks);
-
-    	return "aboutsw_view";
-    }
 	@RequestMapping("/items")
     public String items(Model model, HttpServletRequest request){
         System.out.println("**************items***********************");

@@ -13,7 +13,7 @@
     <mvc:resources location="/login/**" mapping="/login/**"/>
     <mvc:resources location="/firstpage/**" mapping="/firstpage/**"/>
     <mvc:resources location="/password/**" mapping="/password/**"/>
-    <mvc:resources location="/about/**" mapping="/about/**"/>
+    <mvc:resources location="/aboutme/**" mapping="/aboutme/**"/>
     <mvc:resources location="/items/**" mapping="/items/**"/>
     <mvc:resources location="/article/**" mapping="/article/**"/>
     <mvc:resources location="/**" mapping="/**"/>

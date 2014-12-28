@@ -26,7 +26,7 @@
                     </li>
 
                     <li class="page_item page-item-13">
-                        <a href="${home}other">杂谈</a>
+                        <a href="${home}shuo">杂谈</a>
                     </li>
 
                     <li class="page_item page-item-8">

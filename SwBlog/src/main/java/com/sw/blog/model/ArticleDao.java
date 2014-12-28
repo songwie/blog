@@ -171,7 +171,8 @@ public class ArticleDao {
 	public List getAllArticleList(Integer start, Integer limit, String bymonth, String type) {
 		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,b.name  "
 	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
-				   +" where 1=1 " ;
+				   +" where 1=1 "
+	               +"  and b.code='teach'";
 		if(bymonth!=null&&!bymonth.equals("")&&!bymonth.equals("null")){
 	        sql+=" and DATE_FORMAT(t.create_time, '%Y-%m')=:bymonth ";
 		}
@@ -196,5 +197,32 @@ public class ArticleDao {
 		return query.getResultList();
 	}
 
+	public List getShuoList(Integer start, Integer limit ) {
+		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,b.name  "
+	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
+				   +" where 1=1 "
+	               +"  and b.code='shuo'";
+
+        sql+=" order by b.id,t.create_time desc ";
+
+		Query query = entityManager.createNativeQuery(sql);
+
+		query.setFirstResult(start);
+		query.setMaxResults(limit);
+
+		return query.getResultList();
+	}
+	public List getAboutme(  ) {
+		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,b.name,t.article_content  "
+	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
+				   +" where 1=1 "
+	               +"  and b.code='aboutme'";
+
+        sql+=" order by b.id,t.create_time desc ";
+
+		Query query = entityManager.createNativeQuery(sql);
+
+		return query.getResultList();
+	}
 
 }

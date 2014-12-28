@@ -246,8 +246,51 @@ public class ArticleService{
 		return list;
 
 	}
+	public List<Map<String, Object>> getShuoList(String start,String limit ) {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		if(start==null||start.equals("")||start.equals("null")){
+			start = "0";
+		}
+		if(limit==null||limit.equals("")||limit.equals("null")){
+			limit = "10";
+		}
+		List  data = dao.getShuoList(Integer.valueOf(start),Integer.valueOf(limit) );
 
+		for(int i=0;i<data.size();i++){
+			Map<String,Object> map = new HashMap<String, Object>();
+			Object[] objects = (Object[]) data.get(i);
+			map.put("id", objects[0]==null?"":objects[0]);
+			map.put("title", objects[1]==null?"":objects[1]);
+			map.put("articleTypeName", objects[5]==null?"":objects[5]);
+			map.put("articleDate", objects[3]==null?"":objects[3]);
+			map.put("createUser", objects[4]==null?"":objects[4]);
 
+			list.add(map);
+		}
+
+		return list;
+
+	}
+	public List<Map<String, Object>> getAboutme(  ) {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		List  data = dao.getAboutme( );
+
+		for(int i=0;i<data.size();i++){
+			Map<String,Object> map = new HashMap<String, Object>();
+			Object[] objects = (Object[]) data.get(i);
+			map.put("id", objects[0]==null?"":objects[0]);
+			map.put("title", objects[1]==null?"":objects[1]);
+			map.put("articleTypeName", objects[5]==null?"":objects[5]);
+			map.put("articleDate", objects[3]==null?"":objects[3]);
+			map.put("createUser", objects[4]==null?"":objects[4]);
+			map.put("content", objects[6]==null?"":objects[6]);
+
+			list.add(map);
+		}
+
+		return list;
+
+	}
 
 
 }

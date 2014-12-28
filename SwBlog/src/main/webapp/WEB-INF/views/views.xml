@@ -20,13 +20,18 @@
   </definition>
 
   <!-- 关于作者 -->
-  <definition name="aboutsw_view" extends="content">
+  <definition name="aboutme_view" extends="content">
       <put-attribute name="body" value="/about/about.jsp" />
   </definition>
 
   <!-- 技术区 -->
   <definition name="teach_view" extends="content">
       <put-attribute name="body" value="/teach/teachs.jsp" />
+  </definition>
+
+  <!-- 杂谈区 -->
+  <definition name="shuo_view" extends="content">
+      <put-attribute name="body" value="/shuoshuo/shuoshuo.jsp" />
   </definition>
 
   <!-- 文章 -->
