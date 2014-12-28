@@ -22,7 +22,7 @@ public class TeachController {
 	ArticleService articleService;
 
 
-	@RequestMapping("/teach")
+	@RequestMapping("/teachs")
     public String comment(Model model, HttpServletRequest request) throws Exception{
 		String start = request.getParameter("start");
         String limit = request.getParameter("limit");

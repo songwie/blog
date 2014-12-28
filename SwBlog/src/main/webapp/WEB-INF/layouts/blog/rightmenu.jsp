@@ -48,7 +48,7 @@
 				<c:forEach var="data" items="${newTimeList}" varStatus="stauts">
 					<li>
 						<i class="fa fa-clock-o"></i>
-						<a href="${home}teach?bymonth=${data.time}">${data.time} 共${data.count}篇</a>
+						<a href="${home}teachs?bymonth=${data.time}">${data.time} 共${data.count}篇</a>
 					</li>
 				</c:forEach>
 			</ul>
@@ -59,7 +59,7 @@
 				<c:forEach var="data" items="${articleTypeList}" varStatus="stauts">
 					<li class="cat-item cat-item-1">
 						<i class="fa fa-folder-o"></i>
-						<a href="${home}teach?type=${data.id}">${data.type}</a>
+						<a href="${home}teachs?type=${data.id}">${data.type}</a>
 					</li>
                 </c:forEach>
 			</ul>

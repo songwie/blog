@@ -22,7 +22,7 @@
                     </li>
 
                     <li class="page_item page-item-13">
-                        <a href="${home}teach">技术区</a>
+                        <a href="${home}teachs">技术区</a>
                     </li>
 
                     <li class="page_item page-item-13">
