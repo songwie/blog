@@ -12,6 +12,6 @@
 <footer id="colophon" role="contentinfo">
 	 <div class="site-info">
 		<a href="/" title="my blog">本博客使用java</a>
-		<p>©Copyright 2014, songwie.com</p>
+		<p>©Copyright 2014, songwie.com  黔ICP备14006485号-1</p>
 	 </div><!-- .site-info -->
  </footer>
