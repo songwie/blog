@@ -127,7 +127,7 @@ public class ArticleDao {
 		String sql = "  select t.id,t.reply_author,t.article_id,b.title "
                     +"  from tblog_ariticle_reply t left join tblog_article b on t.article_id=b.id  "
                     +"  where 1=1 "
-	                +"  order by t.reply_date ";
+	                +"  order by t.reply_date desc ";
 
 		Query query = entityManager.createNativeQuery(sql);
 		query.setFirstResult(0);

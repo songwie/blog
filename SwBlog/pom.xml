@@ -350,7 +350,27 @@
 			<classifier>jdk15</classifier>
 			<optional>false</optional>
 		</dependency>
-
+        <!-- lunce -->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-highlighter</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+	    <dependency>
+	        <groupId>org.apache.lucene</groupId>
+	        <artifactId>lucene-memory</artifactId>
+	        <version>3.5.0</version>
+	    </dependency>
     </dependencies>
 
     <profiles>
