@@ -20,7 +20,7 @@ public class ArticleDao {
     }
 
 	public List getArticleList(Integer start, Integer limit) {
-		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,t.article_content,b.name  "
+		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,t.article_content,b.name,t.read_count  "
 	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
 				   +" where 1=1"
 	               +" order by t.istop desc,t.level asc,t.create_time desc ";
@@ -61,6 +61,16 @@ public class ArticleDao {
 		query.setParameter("id", id);
 
 		return query.getResultList();
+	}
+	public void freshCount(String id) {
+		String sql = "update tblog_article t set t.read_count=t.read_count+1 "
+				   +" where 1=1 "
+	               +"  and t.id=:id ";
+
+		Query query = entityManager.createNativeQuery(sql);
+		query.setParameter("id", id);
+
+		query.executeUpdate();
 	}
 
 	public Object[] getReplyById(String replyid) {
@@ -169,7 +179,7 @@ public class ArticleDao {
 	}
 
 	public List getAllArticleList(Integer start, Integer limit, String bymonth, String type) {
-		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,b.name  "
+		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,b.name,t.read_count  "
 	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
 				   +" where 1=1 "
 	               +"  and b.code='teach'";

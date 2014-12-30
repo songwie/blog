@@ -59,26 +59,6 @@ public class FirstPageController {
     	return "firstpage_view";
     }
 
-	@RequestMapping("/articlelist/{id}")
-    public String articleDetails(Model model, HttpServletRequest request,@PathVariable ("id")String id){
-        System.out.println("************articleDetails*************************");
-
-        //查询文章
-        Map<String, Object> article = articleService.getArticle(id);
-        List list = new ArrayList();
-        list.add(article);
-
-        model.addAttribute("articleList", list);
-        model.addAttribute("articleid", id);
-
-        //查询文章评论
-        List<Map<String, Object>>  replys = articleService.getReplys(id);
-        model.addAttribute("replyList", replys);
-
-    	return "article_view";
-    }
-
-
 	@RequestMapping("/items")
     public String items(Model model, HttpServletRequest request){
         System.out.println("**************items***********************");

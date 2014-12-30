@@ -45,6 +45,7 @@ public class ArticleService{
 			map.put("articleTypeName", objects[6]==null?"":objects[6]);
 			map.put("articleDate", objects[3]==null?"":objects[3]);
 			map.put("createUser", objects[4]==null?"":objects[4]);
+			map.put("ncount", objects[7]==null?"":objects[7]);
 
 			list.add(map);
 		}
@@ -91,6 +92,7 @@ public class ArticleService{
 
 	public Map<String, Object> getArticle(String id) {
 		List data = dao.getArticleById(id);
+		dao.freshCount(id);
 
 		Map<String,Object> map = new HashMap<String, Object>();
 		Object[] objects = (Object[]) data.get(0);
@@ -239,6 +241,7 @@ public class ArticleService{
 			map.put("articleTypeName", objects[5]==null?"":objects[5]);
 			map.put("articleDate", objects[3]==null?"":objects[3]);
 			map.put("createUser", objects[4]==null?"":objects[4]);
+			map.put("ncount", objects[6]==null?"":objects[6]);
 
 			list.add(map);
 		}

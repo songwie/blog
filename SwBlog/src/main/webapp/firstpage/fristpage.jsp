@@ -51,8 +51,9 @@
 								<time class="entry-date" datetime="2014/12/06 21:07:33">${data.articleDate}</time></a>
 								<span class="by-author"> by
 									<span class="author vcard">
-										<a class="url fn n" href="http://www.songwie.com/blog/author/1" title="" rel="author">${data.createUser}</a>
+										<a class="url fn n" href="#" title="" rel="author">${data.createUser}</a>
 									</span>
+									<span class="author vcard">阅读：(${data.ncount}) </span>
 								</span>
 								<span class="read-more">
 									<a class="read-more" href="${home}articlelist/${data.id}"> 阅读更多...</a>

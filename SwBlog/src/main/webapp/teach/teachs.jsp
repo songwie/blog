@@ -40,6 +40,7 @@
 									<span class="author vcard">
 										<a class="url fn n" href="#" title="" rel="author">${data.createUser}</a>
 									</span>
+									<span class="author vcard">阅读：(${data.ncount}) </span>
 								</span>
 								<span class="read-more">
 									<a class="read-more" href="${home}articlelist/${data.id}"> 阅读更多...</a>
