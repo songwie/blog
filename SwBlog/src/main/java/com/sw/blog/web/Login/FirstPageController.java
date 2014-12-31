@@ -64,11 +64,5 @@ public class FirstPageController {
         System.out.println("**************items***********************");
     	return "items_view";
     }
-	@RequestMapping("/loginMgr")
-    public String login(Model model, HttpServletRequest request){
-        System.out.println("**************login_view***********************");
-    	return "login_view";
-    }
-
 
 }

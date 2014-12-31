@@ -69,7 +69,7 @@
 			<ul>
 				<li>
 					<i class="fa fa-paper-plane "></i>
-					<a href="${home}loginMgr">站点管理</a></li>
+					<a href="${home}sys/loginMgr">站点管理</a></li>
 				<!--<li><a href="http://localhost/php/wordpress/wp-login.php?action=logout&amp;_wpnonce=9cf5819c50">注销</a>
 				</li>-->
 				<li>

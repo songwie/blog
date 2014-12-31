@@ -1,5 +1,6 @@
 package com.sw.blog.model;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -31,6 +32,30 @@ public class ArticleDao {
 
 		return query.getResultList();
 	}
+
+	public List getArticleListByMgr(Integer start, Integer limit) {
+		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,t.article_type_id,t.istop,t.status,t.read_count,b.name  "
+	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
+				   +" where 1=1"
+	               +" order by t.istop desc,t.level asc,t.create_time desc ";
+		Query query = entityManager.createNativeQuery(sql);
+
+		query.setFirstResult(start);
+		query.setMaxResults(limit);
+
+		return query.getResultList();
+	}
+	public List getArticleByMgr(String articleid) {
+		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,t.article_type_id,t.istop,t.status,t.read_count,b.name,t.article_content  "
+	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
+				   +" where 1=1"
+	               +"   and t.id=:articleid "
+	               +" order by t.istop desc,t.level asc,t.create_time desc ";
+		Query query = entityManager.createNativeQuery(sql);
+        query.setParameter("articleid", articleid);
+
+		return query.getResultList();
+	}
 	public List getNewArticles(Integer limit) {
 		String sql = "select t.id,t.title  "
 	               +" from tblog_article t   "
@@ -45,6 +70,12 @@ public class ArticleDao {
 	}
 
 	public List<Object> getArticleTotal() {
+		String sql = "select count(1) from tblog_article t where 1=1";
+		Query query = entityManager.createNativeQuery(sql);
+
+		return query.getResultList();
+	}
+	public List<Object> getArticleTotalByMgr() {
 		String sql = "select count(1) from tblog_article t where 1=1";
 		Query query = entityManager.createNativeQuery(sql);
 
@@ -233,6 +264,47 @@ public class ArticleDao {
 		Query query = entityManager.createNativeQuery(sql);
 
 		return query.getResultList();
+	}
+
+	public void saveArticle(Map<String, Object> article) {
+		String sql = "insert into tblog_article(title,level,create_time,create_user,article_type_id,article_content,istop,status) "
+	               +" value(:title,:level,now(),:create_user,:article_type_id,:article_content,:istop,:status)";
+
+
+		Query query = entityManager.createNativeQuery(sql);
+
+		query.setParameter("title", article.get("title"));
+		query.setParameter("level", article.get("level"));
+		query.setParameter("create_user", article.get("create_user"));
+		query.setParameter("article_type_id", article.get("article_type_id"));
+		query.setParameter("article_content", article.get("content"));
+		query.setParameter("istop", article.get("istop"));
+		query.setParameter("status", article.get("status"));
+
+		query.executeUpdate();
+
+	}
+
+	public void updateArticle(Map<String, Object> article) {
+		String sql = "update tblog_article "
+				   +" set title=:title,level=:level,create_user=:create_user,"
+				   +"     article_type_id=:article_type_id,article_content=:article_content,istop=:istop,status=:status   "
+	               +" where id=:articleid";
+
+
+		Query query = entityManager.createNativeQuery(sql);
+
+		query.setParameter("articleid", article.get("id"));
+		query.setParameter("title", article.get("title"));
+		query.setParameter("level", article.get("level"));
+		query.setParameter("create_user", article.get("create_user"));
+		query.setParameter("article_type_id", article.get("article_type_id"));
+		query.setParameter("article_content", article.get("content"));
+		query.setParameter("istop", article.get("istop"));
+		query.setParameter("status", article.get("status"));
+
+		query.executeUpdate();
+
 	}
 
 }

@@ -1,59 +1,141 @@
 package com.sw.blog.service.impl;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.dom4j.Element;
+import org.omg.CORBA.StringHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sw.blog.base.BlogException;
 import com.sw.blog.base.constant.Constant;
-import com.sw.blog.model.OperUser;
-import com.sw.blog.service.ILoginService;
+import com.sw.blog.model.ArticleDao;
+import com.sw.blog.model.SysDao;
 
 
 @Service("loginService")
 @Scope("prototype")
 @Transactional
-public class LoginService implements ILoginService{
+public class LoginService {
+
+	@Autowired
+	SysDao dao;
+
+	@Autowired
+	ArticleDao articleDao;
 
 	//登录
-	//默认商户或机构号为登录用户名
-	public Map<String, String> LoginAuthen(String username,String pwd,HttpServletRequest request){
+	public Map<String, String> LoginAuthen(String username,String pwd){
 		Map<String, String> map = new HashMap<String, String>();
 
-		OperUser operUser = null;
-
-		operUser = OperUser.getOperUserByUserNameAndPassoword(username, pwd);
-		if(operUser==null){
-			operUser = OperUser.getOperUserByTelphone(String.valueOf(username));
-			if(operUser==null){
-				throw new BlogException("登录用户或手机不存在！");
+		List data = dao.getUser(username);
+		if(data!=null&&data.size()!=0){
+			Object[] datas = (Object[]) data.get(0);
+            String password = datas[2]==null?"":datas[2].toString();
+			if(password.equals(pwd)){
+				map.put(Constant.OPER_USER_ID,username);
+			}else {
+				throw new BlogException("密码错误！");
 			}
-		}
-		String type = operUser.getOperType();
-		String password = operUser.getOperPassword();
-		if(password.equals(pwd)){
-			map.put(Constant.OPER_USER_ID,String.valueOf(operUser.getOperNo()));
-			map.put(Constant.OPER_USER_NAME, operUser.getOperUserName());
-			map.put(Constant.OPER_USER_REAL_NAME, operUser.getOperRealName());
 		}else {
-			throw new BlogException("密码错误！");
+			throw new BlogException("用户不存在！");
 		}
-
 
 		return map;
 	}
 
-	//首页
-	@Override
-	public Map<String, String> fristPage(String type, String merchanId,String userId) {
-        Map<String, String> map = new HashMap<String, String>();
+	public List<Map<String, Object>> getArticles(String start,String limit,StringHolder total) {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
-		return map;
+		if(start==null||start.equals("")||start.equals("null")){
+			start = "0";
+		}
+		if(limit==null||limit.equals("")||limit.equals("null")){
+			limit = "10";
+		}
+
+		List data = articleDao.getArticleListByMgr(Integer.valueOf(start),Integer.valueOf(limit));
+		List<Object> totalList = articleDao.getArticleTotalByMgr();
+
+		for(int i=0;i<data.size();i++){
+			Map<String,Object> map = new HashMap<String, Object>();
+			Object[] objects = (Object[]) data.get(i);
+			map.put("id", objects[0]==null?"":objects[0]);
+			map.put("title", objects[1]==null?"":objects[1]);
+			map.put("level", objects[2]==null?"":objects[2]);
+			map.put("create_time", objects[3]==null?"":objects[3]);
+			map.put("create_user", objects[4]==null?"":objects[4]);
+			map.put("article_type_id", objects[5]==null?"":objects[5]);
+			map.put("istop", objects[6]==null?"":objects[6]);
+			map.put("status", objects[7]==null?"":objects[7]);
+			map.put("read_count", objects[8]==null?"":objects[8]);
+			map.put("typename", objects[9]==null?"":objects[9]);
+
+			list.add(map);
+		}
+
+		total.value = totalList.get(0).toString();
+
+		return list;
+	}
+
+	public List<Map<String, Object>> getArticle(String articleid) {
+
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		List data = articleDao.getArticleByMgr(articleid);
+
+		for(int i=0;i<data.size();i++){
+			Map<String,Object> map = new HashMap<String, Object>();
+			Object[] objects = (Object[]) data.get(i);
+			map.put("id", objects[0]==null?"":objects[0]);
+			map.put("title", objects[1]==null?"":objects[1]);
+			map.put("level", objects[2]==null?"":objects[2]);
+			map.put("create_time", objects[3]==null?"":objects[3]);
+			map.put("create_user", objects[4]==null?"":objects[4]);
+			map.put("article_type_id", objects[5]==null?"":objects[5]);
+			map.put("istop", objects[6]==null?"":objects[6]);
+			map.put("status", objects[7]==null?"":objects[7]);
+			map.put("read_count", objects[8]==null?"":objects[8]);
+			map.put("typename", objects[9]==null?"":objects[9]);
+			map.put("content", objects[10]==null?"":objects[10]);
+
+			list.add(map);
+		}
+
+		return list;
+	}
+
+	public void saveEdit(String articleid, String title, String level,
+			String istop, String status, String content, String createUser , String typeid ) {
+
+		List data = articleDao.getArticleByMgr(articleid);
+		Map<String, Object> article = new HashMap<String, Object>();
+        List<Map<String, Object>> list = this.getArticle(articleid);
+        if(list.size()!=0){
+        	article = list.get(0);
+        }
+
+        article.put("title", title);
+    	article.put("level", level);
+    	article.put("istop", istop);
+    	article.put("status", status);
+    	article.put("content", content);
+    	article.put("create_user", createUser);
+    	article.put("create_time", Calendar.getInstance());
+    	article.put("article_type_id", typeid);
+
+    	if(list.size()!=0){
+        	article = list.get(0);
+            articleDao.updateArticle(article);
+        }else {
+            articleDao.saveArticle(article);
+		}
 	}
 
 

@@ -47,7 +47,7 @@
 
 
 <div id="content-main">
-<form class="form-signin" action="${home}loginput" method="post" id="login-form">
+<form class="form-signin" action="${home}sys/login" method="post" id="login-form">
   <div class="form-signin-inner">
   <h2>Login</h2>
 

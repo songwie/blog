@@ -21,8 +21,9 @@
     <put-attribute name="footer" value="/WEB-INF/layouts/content/footer.jsp" />
   </definition>
 
-  <definition name="login" template="/WEB-INF/layouts/login/login.jsp">
+  <definition name="sys" template="/WEB-INF/layouts/login/login.jsp">
     <put-attribute name="header" value="/WEB-INF/layouts/login/header.jsp" />
+    <put-attribute name="body" value="" />
     <put-attribute name="footer" value="/WEB-INF/layouts/login/footer.jsp" />
   </definition>
 

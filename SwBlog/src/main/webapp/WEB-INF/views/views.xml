@@ -11,9 +11,6 @@
       <put-attribute name="body" value="/WEB-INF/views/resourceNotFound.jsp" />
   </definition>
 
-  <!-- 功能 -->
-  <!-- 登录相关 -->
-  <definition name="newlogin" template="/login/newLogin.jsp"></definition>
   <!-- 首页 -->
   <definition name="firstpage_view" extends="blog">
       <put-attribute name="body" value="/firstpage/fristpage.jsp" />
@@ -40,8 +37,16 @@
   </definition>
 
   <!-- 登陆 -->
-  <definition name="login_view" extends="login">
-      <put-attribute name="body" value="/login/login.jsp" />
+  <!-- 登录相关 -->
+  <definition name="login_view" template="/login/login.jsp"></definition>
+
+  <!-- 后台管理 -->
+  <definition name="sys_view" extends="sys">
+      <put-attribute name="body" value="/sysmgr/index.jsp" />
+  </definition>
+  <!-- 修改/增加 -->
+  <definition name="edit_view" extends="sys">
+      <put-attribute name="body" value="/sysmgr/articleEdit.jsp" />
   </definition>
 
 </tiles-definitions>
