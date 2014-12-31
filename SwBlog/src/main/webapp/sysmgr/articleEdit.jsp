@@ -24,9 +24,9 @@
 			var home = $("#home").val();
 			var editor1 = K.create('textarea[name="content1"]', {
 				cssPath : home+ 'resources/kindEdit/plugins/code/prettify.css',
-				uploadJson : home+ 'resources/kindEdit/jsp/upload_json.jsp',
-				fileManagerJson : home+ 'resources/kindEdit/jsp/file_manager_json.jsp',
-				allowFileManager : true,
+				uploadJson : home+ 'sys/upload',
+				fileManagerJson : home+ 'sysmgr/file_manager_json.jsp',
+				allowFileManager : false,
 				afterCreate : function() {
 					var self = this;
 					K.ctrl(document, 13, function() {
