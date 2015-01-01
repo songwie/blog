@@ -18,6 +18,7 @@ import com.sw.blog.base.BlogException;
 import com.sw.blog.base.constant.Constant;
 import com.sw.blog.base.loginCheck.CheckLoginAnnotation;
 import com.sw.blog.base.loginCheck.ISLOGIN;
+import com.sw.blog.base.util.PageUtil;
 import com.sw.blog.service.impl.ArticleService;
 import com.sw.blog.service.impl.LoginService;
 
@@ -61,9 +62,11 @@ public class LoginController {
 
         //查询文章列表
         StringHolder totalHolder = new StringHolder();
-        List<Map<String, Object>>  articles = service.getArticles(start,limit,totalHolder);
+        PageUtil pageUtil = new PageUtil();
+        List<Map<String, Object>>  articles = service.getArticles(start,limit,totalHolder,pageUtil);
         model.addAttribute("articleList", articles);
         model.addAttribute("articleTotal", totalHolder.value);
+        model.addAttribute("page", pageUtil.getPage());
 
     	return "sys_view";
     }

@@ -1,6 +1,7 @@
 package com.sw.blog.web.Login;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sw.blog.base.util.PageUtil;
 import com.sw.blog.service.impl.ArticleService;
 
 @RequestMapping("/")
@@ -32,8 +34,10 @@ public class TeachController {
         String type = request.getParameter("type");
 
 		//文章发表
-        List<Map<String, Object>>  allArticleList = articleService.getAllArticleList(start,limit,bymonth,type);
+        PageUtil pageUtil = new PageUtil();
+        List<Map<String, Object>>  allArticleList = articleService.getAllArticleList(start,limit,bymonth,type,pageUtil);
         model.addAttribute("allArticleList", allArticleList);
+        model.addAttribute("page", pageUtil.getPage());
 
 		return "teach_view" ;
     }

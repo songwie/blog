@@ -1,5 +1,6 @@
 package com.sw.blog.service.impl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sw.blog.base.util.PageUtil;
 import com.sw.blog.model.ArticleDao;
 
 
@@ -223,7 +225,7 @@ public class ArticleService{
 
 		return list;
 	}
-	public List<Map<String, Object>> getAllArticleList(String start,String limit, String bymonth, String type) {
+	public List<Map<String, Object>> getAllArticleList(String start,String limit, String bymonth, String type, PageUtil pageUtil) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		if(start==null||start.equals("")||start.equals("null")){
 			start = "0";
@@ -232,6 +234,7 @@ public class ArticleService{
 			limit = "10";
 		}
 		List  data = dao.getAllArticleList(Integer.valueOf(start),Integer.valueOf(limit),bymonth,type);
+		BigInteger  total = dao.getAllArticleTotal(bymonth,type);
 
 		for(int i=0;i<data.size();i++){
 			Map<String,Object> map = new HashMap<String, Object>();
@@ -246,18 +249,21 @@ public class ArticleService{
 			list.add(map);
 		}
 
+		pageUtil.parsePage(start, limit, total.intValue());
+
 		return list;
 
 	}
-	public List<Map<String, Object>> getShuoList(String start,String limit ) {
+	public List<Map<String, Object>> getShuoList(String start,String limit,PageUtil pageUtil ) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		if(start==null||start.equals("")||start.equals("null")){
 			start = "0";
 		}
 		if(limit==null||limit.equals("")||limit.equals("null")){
-			limit = "10";
+			limit = "5";
 		}
 		List  data = dao.getShuoList(Integer.valueOf(start),Integer.valueOf(limit) );
+        BigInteger total = dao.getShuoTotal();
 
 		for(int i=0;i<data.size();i++){
 			Map<String,Object> map = new HashMap<String, Object>();
@@ -270,6 +276,7 @@ public class ArticleService{
 
 			list.add(map);
 		}
+		pageUtil.parsePage(start, limit, total.intValue());
 
 		return list;
 

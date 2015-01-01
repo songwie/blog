@@ -15,6 +15,7 @@
 		table.imagetable {
 			font-family: verdana,arial,sans-serif;
 			font-size:11px;
+			width:800;
 			color:#333333;
 			border-width: 1px;
 			border-color: #999999;
@@ -42,7 +43,7 @@
 	<div class="dataList">
 	      <a href="${home}sys/add" class="possdetail" ><font color='blue'>添加文章</font></a>
 	      <hr>
-		  <table class="imagetable" >
+		  <table class="imagetable" width=900>
 		     <tbody>
 		         <tr>
 		            <th>ID</td>
@@ -61,7 +62,7 @@
                    <tr>
 				       <td align="left">${data.id}</td>
 				       <td align="left">${data.typename}</td>
-				       <td align="left" style="padding-left: 13px;">${data.title}</td>
+				       <td align="left" style="padding-left: 13px;word-wrap:break-word;" width=200>${data.title}</td>
 				       <td align="left">${data.create_time}</td>
 				       <td align="left">${data.create_user}</td>
 				       <td align="left">${data.level}</td>
@@ -76,6 +77,32 @@
 
 
 		</table>
+		<div class="pagination">
+				    <span class="step-links">
+				        <c:choose>
+				           <c:when test="${page.has_prepage == 1}">
+				              <a href="${home}sys/mgr?start=0">首页</a>
+				              <a href="${home}sys/mgr?start=${page.pre_start}">上一页</a>
+				           </c:when>
+				           <c:otherwise>
+							  <span class='deactive'>首页</span>
+				              <span class='deactive'>上一页</span>
+				           </c:otherwise>
+				        </c:choose>
+				        <c:choose>
+				           <c:when test="${page.has_nextpage == 1}">
+				              <a href="${home}sys/mgr?start=${page.next_start}">下一页</a>
+				              <a href="${home}sys/mgr?start=${page.last_start}">尾页</a>
+				           </c:when>
+				           <c:otherwise>
+							  <span class='deactive'>下一页</span>
+				              <span class='deactive'>尾页</span>
+				           </c:otherwise>
+				        </c:choose>
+				                    当前第${page.curr_page}页, 共${page.pagetotal}页 , ${ page.total }条.
+				    </span>
+				</div>
+				<!-- #page nav -->
         </div>
 
 </div>

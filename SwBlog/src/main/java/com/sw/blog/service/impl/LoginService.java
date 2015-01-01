@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sw.blog.base.BlogException;
 import com.sw.blog.base.constant.Constant;
+import com.sw.blog.base.util.PageUtil;
 import com.sw.blog.model.ArticleDao;
 import com.sw.blog.model.SysDao;
 
@@ -50,14 +51,14 @@ public class LoginService {
 		return map;
 	}
 
-	public List<Map<String, Object>> getArticles(String start,String limit,StringHolder total) {
+	public List<Map<String, Object>> getArticles(String start,String limit,StringHolder total, PageUtil pageUtil) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
 		if(start==null||start.equals("")||start.equals("null")){
 			start = "0";
 		}
 		if(limit==null||limit.equals("")||limit.equals("null")){
-			limit = "10";
+			limit = "3";
 		}
 
 		List data = articleDao.getArticleListByMgr(Integer.valueOf(start),Integer.valueOf(limit));
@@ -81,6 +82,7 @@ public class LoginService {
 		}
 
 		total.value = totalList.get(0).toString();
+		pageUtil.parsePage(start, limit, Integer.valueOf(total.value));
 
 		return list;
 	}

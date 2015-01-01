@@ -51,36 +51,31 @@
 			    </c:forEach>
 
 				<!-- #post -->
-				<!-- <div class="pagination">
+				<div class="pagination">
 				    <span class="step-links">
-				        {% if page.has_previous %}
-				            <a href="/blog/pages">首页</a>
-				            <a href="/blog/pages{{ posts.previous_page_number }}">上一页</a>
-				        {%else%}
-				            <span class='deactive'>首页</span>
-				            <span class='deactive'>上一页</span>
-				        {% endif %}
-				        {% for i in page.paginator.page_range_ext %}
-				            {%if i = page.number %}
-				                <span class='currentpage'>
-				                <span href='/blog/pages{{i}}'>{{i}}</span>
-				            {%else%}
-				            <a class='paginator' href='/blog/pages{{i}}'>{{i}}</a>
-				            {%endif%}
-				        {% endfor%}
-				        {% if page.has_next %}
-				            <a href="/blog/pages{{ page.next_page_number }}">下一页</a>
-				            <a href="/blog/pages{{ page.paginator.num_pages }}">尾页</a>
-				        {%else%}
-				            <span class='deactive'>下一页</span>
-				            <span class='deactive'>尾页</span>
-
-				        {% endif %}
-				         共{{ page.paginator.num_pages }}页.
-
+				        <c:choose>
+				           <c:when test="${page.has_prepage == 1}">
+				              <a href="${home}teachs?start=0">首页</a>
+				              <a href="${home}teachs?start=${page.pre_start}">上一页</a>
+				           </c:when>
+				           <c:otherwise>
+							  <span class='deactive'>首页</span>
+				              <span class='deactive'>上一页</span>
+				           </c:otherwise>
+				        </c:choose>
+				        <c:choose>
+				           <c:when test="${page.has_nextpage == 1}">
+				              <a href="${home}teachs?start=${page.next_start}">下一页</a>
+				              <a href="${home}teachs?start=${page.last_start}">尾页</a>
+				           </c:when>
+				           <c:otherwise>
+							  <span class='deactive'>下一页</span>
+				              <span class='deactive'>尾页</span>
+				           </c:otherwise>
+				        </c:choose>
+				                 当前第${page.curr_page}页, 共${page.pagetotal}页 , ${ page.total }条.
 				    </span>
 				</div>
-				 -->
 				<!-- #page nav -->
 
 			</div><!-- #content -->

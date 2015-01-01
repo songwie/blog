@@ -1,4 +1,5 @@
 package com.sw.blog.model;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ public class ArticleDao {
 		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,t.article_content,b.name,t.read_count  "
 	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
 				   +" where 1=1"
+	                +" and t.status=1 "
 	               +" order by t.istop desc,t.level asc,t.create_time desc ";
 		Query query = entityManager.createNativeQuery(sql);
 
@@ -86,6 +88,7 @@ public class ArticleDao {
 		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,t.article_content,b.name  "
 	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
 				   +" where 1=1 "
+	                +" and t.status=1 "
 	               +"  and t.id=:id ";
 
 		Query query = entityManager.createNativeQuery(sql);
@@ -158,6 +161,7 @@ public class ArticleDao {
 		String sql = "  select t.id,t.reply_author,t.article_id,b.title "
                     +"  from tblog_ariticle_reply t left join tblog_article b on t.article_id=b.id  "
                     +"  where 1=1 "
+ 	                +"    and b.status=1 "
 	                +"  order by t.reply_date desc ";
 
 		Query query = entityManager.createNativeQuery(sql);
@@ -182,6 +186,7 @@ public class ArticleDao {
 	public List getNewTimeList(Integer limit) {
 		String sql = " select DATE_FORMAT(t.create_time, '%Y-%m'),count(1) "
 				    +" from tblog_article t "
+		            +"  where t.status=1 "
 	                +" group by  DATE_FORMAT(t.create_time, '%Y-%m')   ";
 
 		Query query = entityManager.createNativeQuery(sql);
@@ -213,6 +218,7 @@ public class ArticleDao {
 		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,b.name,t.read_count  "
 	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
 				   +" where 1=1 "
+	               +"  and t.status=1 "
 	               +"  and b.code='teach'";
 		if(bymonth!=null&&!bymonth.equals("")&&!bymonth.equals("null")){
 	        sql+=" and DATE_FORMAT(t.create_time, '%Y-%m')=:bymonth ";
@@ -238,10 +244,37 @@ public class ArticleDao {
 		return query.getResultList();
 	}
 
+	public BigInteger getAllArticleTotal(String bymonth, String type) {
+		String sql = "select count(1)  "
+	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
+				   +" where 1=1 "
+	               +"  and t.status=1 "
+	               +"  and b.code='teach'";
+		if(bymonth!=null&&!bymonth.equals("")&&!bymonth.equals("null")){
+	        sql+=" and DATE_FORMAT(t.create_time, '%Y-%m')=:bymonth ";
+		}
+        if(type!=null&&!type.equals("")&&!type.equals("null")){
+	        sql+=" and b.id=:typeid ";
+		}
+
+
+		Query query = entityManager.createNativeQuery(sql);
+
+		if(bymonth!=null&&!bymonth.equals("")&&!bymonth.equals("null")){
+			query.setParameter("bymonth", bymonth);
+		}
+		if(type!=null&&!type.equals("")&&!type.equals("null")){
+			query.setParameter("typeid", type);
+		}
+
+		return (BigInteger) query.getSingleResult();
+	}
+
 	public List getShuoList(Integer start, Integer limit ) {
 		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,b.name  "
 	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
 				   +" where 1=1 "
+	               +"  and t.status=1 "
 	               +"  and b.code='shuo'";
 
         sql+=" order by b.id,t.create_time desc ";
@@ -253,10 +286,27 @@ public class ArticleDao {
 
 		return query.getResultList();
 	}
+
+	public BigInteger getShuoTotal() {
+		String sql = "select count(1)  "
+	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
+				   +" where 1=1 "
+	               +"  and t.status=1 "
+	               +"  and b.code='shuo'";
+
+        sql+=" order by b.id,t.create_time desc ";
+
+		Query query = entityManager.createNativeQuery(sql);
+
+
+		return (BigInteger) query.getSingleResult();
+	}
+
 	public List getAboutme(  ) {
 		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,b.name,t.article_content  "
 	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
 				   +" where 1=1 "
+	               +"  and t.status=1 "
 	               +"  and b.code='aboutme'";
 
         sql+=" order by b.id,t.create_time desc ";
