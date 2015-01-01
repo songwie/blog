@@ -51,18 +51,18 @@ public class LoginService {
 		return map;
 	}
 
-	public List<Map<String, Object>> getArticles(String start,String limit,StringHolder total, PageUtil pageUtil) {
+	public List<Map<String, Object>> getArticles(String start,String limit,StringHolder total, String search, PageUtil pageUtil) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
 		if(start==null||start.equals("")||start.equals("null")){
 			start = "0";
 		}
 		if(limit==null||limit.equals("")||limit.equals("null")){
-			limit = "3";
+			limit = "10";
 		}
 
-		List data = articleDao.getArticleListByMgr(Integer.valueOf(start),Integer.valueOf(limit));
-		List<Object> totalList = articleDao.getArticleTotalByMgr();
+		List data = articleDao.getArticleListByMgr(Integer.valueOf(start),Integer.valueOf(limit),search);
+		List<Object> totalList = articleDao.getArticleTotalByMgr(search);
 
 		for(int i=0;i<data.size();i++){
 			Map<String,Object> map = new HashMap<String, Object>();
@@ -138,6 +138,10 @@ public class LoginService {
         }else {
             articleDao.saveArticle(article);
 		}
+	}
+
+	public void delete(String articleid) {
+		articleDao.delete(articleid);
 	}
 
 

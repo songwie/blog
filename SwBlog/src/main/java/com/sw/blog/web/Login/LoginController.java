@@ -59,16 +59,26 @@ public class LoginController {
     public String mgr(Model model, HttpServletRequest request){
         String start = request.getParameter("start");
         String limit = request.getParameter("limit");
+        String search = request.getParameter("searthstr");
 
         //查询文章列表
         StringHolder totalHolder = new StringHolder();
         PageUtil pageUtil = new PageUtil();
-        List<Map<String, Object>>  articles = service.getArticles(start,limit,totalHolder,pageUtil);
+        List<Map<String, Object>>  articles = service.getArticles(start,limit,totalHolder,search,pageUtil);
         model.addAttribute("articleList", articles);
         model.addAttribute("articleTotal", totalHolder.value);
         model.addAttribute("page", pageUtil.getPage());
 
     	return "sys_view";
+    }
+	@RequestMapping("/delete")
+	@CheckLoginAnnotation(isLogin = ISLOGIN.YES)
+    public String delete(Model model, HttpServletRequest request){
+        String articleid = request.getParameter("articleid");
+        service.delete(articleid);
+
+
+    	return "redirect:/sys/mgr";
     }
 
 	@RequestMapping("/edit")

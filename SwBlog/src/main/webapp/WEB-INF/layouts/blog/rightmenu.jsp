@@ -6,10 +6,10 @@
 <spring:url value="/" var="home"></spring:url>
 <div id="secondary" class="widget-area" role="complementary">
 		<aside id="search-2" class="widget widget_search">
-			<form role="search" method="get" id="searchform" class="searchform" action="${home}search">
+			<form role="search" method="get" id="searchform" class="searchform" action="${home}teachs">
 				<div>
 					<label class="screen-reader-text" for="s">Search for:</label>
-					<input type="text" value="" name="search" id="searchid">
+					<input type="text" value="" name="searthstr" id="searchid">
 					<input type="submit" id="searchsubmit" value="搜索">
 				</div>
 			</form>

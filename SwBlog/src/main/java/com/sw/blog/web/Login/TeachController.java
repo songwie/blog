@@ -27,15 +27,16 @@ public class TeachController {
 
 
 	@RequestMapping("/teachs")
-    public String comment(Model model, HttpServletRequest request) throws Exception{
+    public String teachs(Model model, HttpServletRequest request) throws Exception{
 		String start = request.getParameter("start");
         String limit = request.getParameter("limit");
         String bymonth = request.getParameter("bymonth");
         String type = request.getParameter("type");
+        String search = request.getParameter("searthstr");
 
 		//文章发表
         PageUtil pageUtil = new PageUtil();
-        List<Map<String, Object>>  allArticleList = articleService.getAllArticleList(start,limit,bymonth,type,pageUtil);
+        List<Map<String, Object>>  allArticleList = articleService.getAllArticleList(start,limit,bymonth,type,search,pageUtil);
         model.addAttribute("allArticleList", allArticleList);
         model.addAttribute("page", pageUtil.getPage());
 

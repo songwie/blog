@@ -41,6 +41,17 @@
 
 <div id="content-main">
 	<div class="dataList">
+
+	      <aside id="search-2" class="widget widget_search">
+			<form role="search" method="get" id="searchform" class="searchform" action="${home}sys/mgr">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="text" value="" name="searthstr" id="searchid">
+					<input type="submit" id="searchsubmit" value="搜索">
+				</div>
+			</form>
+		  </aside>
+
 	      <a href="${home}sys/add" class="possdetail" ><font color='blue'>添加文章</font></a>
 	      <hr>
 		  <table class="imagetable" width=900>
@@ -70,7 +81,10 @@
 				       <td align="left">${data.read_count}</td>
 				       <td align="left">${data.status}</td>
 
-				       <td><a href="${home}sys/edit?articleid=${data.id}" class="possdetail" >在线编辑</a></td>
+				       <td>
+				          <a href="${home}sys/edit?articleid=${data.id}" class="possdetail" >在线编辑</a>
+				          <a href="${home}sys/delete?articleid=${data.id}" class="possdetail" >删除</a>
+				       </td>
 
 				   </tr>
 				  </c:forEach>

@@ -35,12 +35,22 @@ public class ArticleDao {
 		return query.getResultList();
 	}
 
-	public List getArticleListByMgr(Integer start, Integer limit) {
+	public List getArticleListByMgr(Integer start, Integer limit, String search) {
 		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,t.article_type_id,t.istop,t.status,t.read_count,b.name  "
 	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
-				   +" where 1=1"
-	               +" order by t.istop desc,t.level asc,t.create_time desc ";
+				   +" where 1=1" ;
+
+		if(search!=null&&!search.equals("")&&!search.equals("null")){
+	        sql+=" and ( t.title like concat('%',:search,'%') or t.article_content like concat('%',:search,'%') ) ";
+		}
+
+		sql+=" order by t.istop desc,t.level asc,t.create_time desc ";
+
 		Query query = entityManager.createNativeQuery(sql);
+
+		if(search!=null&&!search.equals("")&&!search.equals("null")){
+			query.setParameter("search", search);
+		}
 
 		query.setFirstResult(start);
 		query.setMaxResults(limit);
@@ -77,9 +87,18 @@ public class ArticleDao {
 
 		return query.getResultList();
 	}
-	public List<Object> getArticleTotalByMgr() {
-		String sql = "select count(1) from tblog_article t where 1=1";
+	public List<Object> getArticleTotalByMgr(String search) {
+		String sql = "select count(1) from tblog_article t where 1=1 ";
+
+		if(search!=null&&!search.equals("")&&!search.equals("null")){
+	        sql+=" and ( t.title like concat('%',:search,'%') or t.article_content like concat('%',:search,'%') ) ";
+		}
+
 		Query query = entityManager.createNativeQuery(sql);
+
+		if(search!=null&&!search.equals("")&&!search.equals("null")){
+			query.setParameter("search", search);
+		}
 
 		return query.getResultList();
 	}
@@ -214,7 +233,7 @@ public class ArticleDao {
 		return query.getResultList();
 	}
 
-	public List getAllArticleList(Integer start, Integer limit, String bymonth, String type) {
+	public List getAllArticleList(Integer start, Integer limit, String bymonth, String type, String search) {
 		String sql = "select t.id,t.title,t.level,t.create_time,t.create_user,b.name,t.read_count  "
 	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
 				   +" where 1=1 "
@@ -225,6 +244,9 @@ public class ArticleDao {
 		}
         if(type!=null&&!type.equals("")&&!type.equals("null")){
 	        sql+=" and b.id=:typeid ";
+		}
+        if(search!=null&&!search.equals("")&&!search.equals("null")){
+	        sql+=" and ( t.title like concat('%',:search,'%') or t.article_content like concat('%',:search,'%') ) ";
 		}
 
         sql+=" order by b.id,t.create_time desc ";
@@ -237,6 +259,9 @@ public class ArticleDao {
 		if(type!=null&&!type.equals("")&&!type.equals("null")){
 			query.setParameter("typeid", type);
 		}
+		if(search!=null&&!search.equals("")&&!search.equals("null")){
+			query.setParameter("search", search);
+		}
 
 		query.setFirstResult(start);
 		query.setMaxResults(limit);
@@ -244,7 +269,7 @@ public class ArticleDao {
 		return query.getResultList();
 	}
 
-	public BigInteger getAllArticleTotal(String bymonth, String type) {
+	public BigInteger getAllArticleTotal(String bymonth, String type, String search) {
 		String sql = "select count(1)  "
 	               +" from tblog_article t inner join tblog_ariticle_type b on t.article_type_id=b.id "
 				   +" where 1=1 "
@@ -256,7 +281,11 @@ public class ArticleDao {
         if(type!=null&&!type.equals("")&&!type.equals("null")){
 	        sql+=" and b.id=:typeid ";
 		}
+        if(search!=null&&!search.equals("")&&!search.equals("null")){
+	        sql+=" and ( t.title like concat('%',:search,'%') or t.article_content like concat('%',:search,'%') ) ";
+		}
 
+        sql+=" order by b.id,t.create_time desc ";
 
 		Query query = entityManager.createNativeQuery(sql);
 
@@ -265,6 +294,9 @@ public class ArticleDao {
 		}
 		if(type!=null&&!type.equals("")&&!type.equals("null")){
 			query.setParameter("typeid", type);
+		}
+		if(search!=null&&!search.equals("")&&!search.equals("null")){
+			query.setParameter("search", search);
 		}
 
 		return (BigInteger) query.getSingleResult();
@@ -355,6 +387,16 @@ public class ArticleDao {
 
 		query.executeUpdate();
 
+	}
+
+	public void delete(String articleid) {
+		String sql = "delete from  tblog_article    "
+	               +" where id=:articleid";
+
+		Query query = entityManager.createNativeQuery(sql);
+		query.setParameter("articleid", articleid);
+
+		query.executeUpdate();
 	}
 
 }

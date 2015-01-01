@@ -16,6 +16,7 @@
     <div id="page" class="hfeed site">
         <tiles:insertAttribute name="header" />
 		<tiles:insertAttribute name="menu" />
+	    <tiles:insertAttribute name="rightmenu"/>
 	    <tiles:insertAttribute name="body"/>
 	    <tiles:insertAttribute name="footer"/>
     </div>

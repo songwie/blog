@@ -225,7 +225,7 @@ public class ArticleService{
 
 		return list;
 	}
-	public List<Map<String, Object>> getAllArticleList(String start,String limit, String bymonth, String type, PageUtil pageUtil) {
+	public List<Map<String, Object>> getAllArticleList(String start,String limit, String bymonth, String type,String search, PageUtil pageUtil) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		if(start==null||start.equals("")||start.equals("null")){
 			start = "0";
@@ -233,8 +233,8 @@ public class ArticleService{
 		if(limit==null||limit.equals("")||limit.equals("null")){
 			limit = "10";
 		}
-		List  data = dao.getAllArticleList(Integer.valueOf(start),Integer.valueOf(limit),bymonth,type);
-		BigInteger  total = dao.getAllArticleTotal(bymonth,type);
+		List  data = dao.getAllArticleList(Integer.valueOf(start),Integer.valueOf(limit),bymonth,type,search);
+		BigInteger  total = dao.getAllArticleTotal(bymonth,type,search);
 
 		for(int i=0;i<data.size();i++){
 			Map<String,Object> map = new HashMap<String, Object>();

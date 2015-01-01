@@ -1,4 +1,4 @@
-1420110820028|-1||debug||com.p6spy.engine.common.P6SpyOptions reloading properties
+1420114478697|-1||debug||com.p6spy.engine.common.P6SpyOptions reloading properties
 2015-01-01|-1||info||Using properties file: E:\¸öÈË\blog\SwBlog\target\classes\spy.properties
 2015-01-01|-1||info||No value in environment for: getStackTrace, using: false
 2015-01-01|-1||info||No value in environment for: getFilter, using: true
@@ -20,7 +20,7 @@
 2015-01-01|-1||info||No value in environment for: getDateformat, using: yyyy-MM-dd
 2015-01-01|-1||info||No value in environment for: getDateformatter, using: java.text.SimpleDateFormat@f67a0200
 2015-01-01|-1||info||No value in environment for: getStringmatcher, using: com.p6spy.engine.common.SubstringMatcher
-2015-01-01|-1||info||No value in environment for: getStringMatcherEngine, using: com.p6spy.engine.common.SubstringMatcher@62526d1d
+2015-01-01|-1||info||No value in environment for: getStringMatcherEngine, using: com.p6spy.engine.common.SubstringMatcher@79d0569b
 2015-01-01|-1||info||No value in environment for: getStackTraceClass, using: 
 2015-01-01|-1||info||No value in environment for: getSQLExpression, using: null
 2015-01-01|-1||info||No value in environment for: getReloadProperties, using: false
