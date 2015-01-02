@@ -15,6 +15,7 @@
     <mvc:resources location="/password/**" mapping="/password/**"/>
     <mvc:resources location="/about/**" mapping="/about/**"/>
     <mvc:resources location="/items/**" mapping="/items/**"/>
+    <mvc:resources location="/article/**" mapping="/article/**"/>
     <mvc:resources location="/**" mapping="/**"/>
     <mvc:default-servlet-handler/>
 
