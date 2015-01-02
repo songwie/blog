@@ -41,7 +41,7 @@ public class FirstPageController {
     	return "firstpage_view";
     }
 
-	@RequestMapping("/article/{id}")
+	@RequestMapping("/articlelist/{id}")
     public String articleDetails(Model model, HttpServletRequest request,@PathVariable ("id")String id){
         System.out.println("************articleDetails*************************");
 

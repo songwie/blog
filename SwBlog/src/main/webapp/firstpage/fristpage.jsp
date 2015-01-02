@@ -30,10 +30,10 @@
 			        <article id="post-${data.id}" class="post-1 post type-post status-publish format-standard hentry category-uncategorized">
 						<header class="entry-header">
 							<h1 class="entry-title">
-								<a title="" href="${home}article/${data.id}" rel="bookmark">${data.title}</a>
+								<a title="" href="${home}articlelist/${data.id}" rel="bookmark">${data.title}</a>
 							</h1>
 							<div class="comments-link">
-							    <a href="${home}article/${data.id}" title="评论 ">
+							    <a href="${home}articlelist/${data.id}" title="评论 ">
 								   <i class="fa fa-comment-o  "></i><span class="leave-reply">发表回复</span>
 								</a>
 							</div>
@@ -55,7 +55,7 @@
 									</span>
 								</span>
 								<span class="read-more">
-									<a class="read-more" href="${home}article/${data.id}"> 阅读更多...</a>
+									<a class="read-more" href="${home}articlelist/${data.id}"> 阅读更多...</a>
 								</span>
 						</footer>
 
