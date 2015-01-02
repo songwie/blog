@@ -36,6 +36,10 @@ public class LoginController {
     public String loginInit(Model model, HttpServletRequest request){
     	return "login_view";
     }
+	@RequestMapping("/mgrindex")
+    public String mgrindex(Model model, HttpServletRequest request){
+    	return "mgrindex_view";
+    }
 	@RequestMapping("/login")
     public String login(Model model, HttpServletRequest request){
     	try{

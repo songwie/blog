@@ -51,7 +51,7 @@
 				</div>
 			</form>
 		  </aside>
-	      <a href="${home}sysmgr/mgr.jsp" class="possdetail" ><font color='blue'>管理</font></a>
+	      <a href="${home}sys/mgrindex" class="possdetail" ><font color='blue'>管理</font></a>
           <hr>
 	      <a href="${home}sys/add" class="possdetail" ><font color='blue'>添加文章</font></a>
 	      <hr>

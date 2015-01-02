@@ -44,6 +44,9 @@
   <definition name="sys_view" extends="sys">
       <put-attribute name="body" value="/sysmgr/index.jsp" />
   </definition>
+  <definition name="mgrindex_view" extends="content">
+      <put-attribute name="body" value="/sysmgr/mgr.jsp" />
+  </definition>
   <!-- 修改/增加 -->
   <definition name="edit_view" extends="sys">
       <put-attribute name="body" value="/sysmgr/articleEdit.jsp" />
