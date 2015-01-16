@@ -12,6 +12,7 @@
     <link type="text/css" rel="stylesheet" href="${home}resources/css/code.css">
     <link type="text/css" rel="stylesheet" href="${home}resources/css/font-awesome.min.css">
     <title>从零开始</title>
+    <link rel="favicon" href="${home}favicon.ico" />
 
     <script type="text/javascript" src="${home}resources/js/comment-reply.js"></script>
 

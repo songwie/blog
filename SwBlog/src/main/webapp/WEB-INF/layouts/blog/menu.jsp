@@ -7,7 +7,7 @@
 
     <header id="masthead" class="site-header" role="banner">
         <hgroup>
-            <h1 class="site-title"><a href="" title="blog" rel="home"> 从零开始</a></h1>
+            <h1 class="site-title"><img src="${home}resources/img/logo.jpg"><a href="" title="blog" rel="home"> 从零开始</a></h1>
             <h2 class="site-description"> 世界上有不绝的风景，我有不老的心情 。</h2>
         </hgroup>
 
