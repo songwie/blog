@@ -1,0 +1,187 @@
+@media (min-width: 768px) {
+.form-signin {
+    max-width: 380px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.form-signin-inner{
+    padding: 9px 29px 29px;
+}
+.form-signin .form-signin-heading, .form-signin .checkbox, .form-signin h2 {
+    margin-bottom: 30px;
+}
+.form-signin .form-actions{
+    margin: 0;
+}
+#id_username, #id_password{
+    display: block;
+    font-size: 16px;
+    height: 44px;
+    width: 100%;
+}
+}
+element.style {
+}
+input[type=submit].btn-block, input[type=reset].btn-block, input[type=button].btn-block {
+width: 100%;
+}
+button, html input[type=button], input[type=reset], input[type=submit] {
+-webkit-appearance: button;
+cursor: pointer;
+}
+.btn-primary {
+background-image: -webkit-linear-gradient(top,#428bca 0,#2d6ca2 100%);
+background-image: -o-linear-gradient(top,#428bca 0,#2d6ca2 100%);
+background-image: -webkit-gradient(linear,left top,left bottom,from(#428bca),to(#2d6ca2));
+background-image: linear-gradient(to bottom,#428bca 0,#2d6ca2 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff428bca', endColorstr='#ff2d6ca2', GradientType=0);
+filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+background-repeat: repeat-x;
+border-color: #2b669a;
+}
+.btn-default, .btn-primary, .btn-success, .btn-info, .btn-warning, .btn-danger {
+text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
+box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
+}
+.btn-block {
+display: block;
+width: 100%;
+}
+.btn-lg, .btn-group-lg>.btn {
+padding: 10px 16px;
+font-size: 18px;
+line-height: 1.33;
+border-radius: 6px;
+}
+.btn-primary {
+color: #fff;
+background-color: #428bca;
+border-color: #357ebd;
+}
+.btn {
+display: inline-block;
+padding: 6px 12px;
+margin-bottom: 0;
+font-size: 14px;
+font-weight: 400;
+line-height: 1.42857143;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+cursor: pointer;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+background-image: none;
+border: 1px solid transparent;
+border-radius: 4px;
+}
+input, button, select, textarea {
+font-family: inherit;
+font-size: inherit;
+line-height: inherit;
+}
+input {
+line-height: normal;
+}
+button, input, optgroup, select, textarea {
+margin: 0;
+font: inherit;
+color: inherit;
+}
+* {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+user agent stylesheetinput[type="button" i], input[type="submit" i], input[type="reset" i], input[type="file" i]::-webkit-file-upload-button, button {
+padding: 1px 6px;
+}
+user agent stylesheetinput[type="button" i], input[type="submit" i], input[type="reset" i], input[type="file" i]::-webkit-file-upload-button, button {
+align-items: flex-start;
+text-align: center;
+cursor: default;
+color: buttontext;
+padding: 2px 6px 3px;
+border: 2px outset buttonface;
+border-image-source: initial;
+border-image-slice: initial;
+border-image-width: initial;
+border-image-outset: initial;
+border-image-repeat: initial;
+background-color: buttonface;
+box-sizing: border-box;
+}
+user agent stylesheetinput[type="button" i], input[type="submit" i], input[type="reset" i] {
+-webkit-appearance: push-button;
+-webkit-user-select: none;
+white-space: pre;
+}
+user agent stylesheetinput, input[type="password" i], input[type="search" i] {
+-webkit-appearance: textfield;
+padding: 1px;
+background-color: white;
+border: 2px inset;
+border-image-source: initial;
+border-image-slice: initial;
+border-image-width: initial;
+border-image-outset: initial;
+border-image-repeat: initial;
+-webkit-rtl-ordering: logical;
+-webkit-user-select: text;
+cursor: auto;
+}
+user agent stylesheetinput, textarea, keygen, select, button {
+margin: 0em;
+font: -webkit-small-control;
+color: initial;
+letter-spacing: normal;
+word-spacing: normal;
+text-transform: none;
+text-indent: 0px;
+text-shadow: none;
+display: inline-block;
+text-align: start;
+}
+user agent stylesheetinput, textarea, keygen, select, button, meter, progress {
+-webkit-writing-mode: horizontal-tb;
+}
+Pseudo ::before element
+:before, :after {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+Pseudo ::after element
+:before, :after {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+Inherited from body
+body {
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+font-size: 14px;
+line-height: 1.42857143;
+color: #333;
+background-color: #fff;
+}
+Inherited from html
+html {
+font-size: 10px;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+html {
+font-family: sans-serif;
+-webkit-text-size-adjust: 100%;
+-ms-text-size-adjust: 100%;
+}

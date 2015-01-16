@@ -10,41 +10,9 @@
     <title>站点管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" type="text/css" href="${home}resources/css/sys_login.css">
 
 </head>
-
-<style type="text/css">
-@media (min-width: 768px) {
-.form-signin {
-    max-width: 380px;
-    margin: 0 auto 20px;
-    background-color: #fff;
-    border: 1px solid #e5e5e5;
-    -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-        box-shadow: 0 1px 2px rgba(0,0,0,.05);
-}
-.form-signin-inner{
-    padding: 9px 29px 29px;
-}
-.form-signin .form-signin-heading, .form-signin .checkbox, .form-signin h2 {
-    margin-bottom: 30px;
-}
-.form-signin .form-actions{
-    margin: 0;
-}
-#id_username, #id_password{
-    display: block;
-    font-size: 16px;
-    height: 44px;
-    width: 100%;
-}
-}
-</style>
-
 
 <div id="content-main">
 <form class="form-signin" action="${home}sys/login" method="post" id="login-form">
@@ -65,6 +33,7 @@
 
 
   <div class="form-actions clearfix">
+      <hr>
       <input type="submit" value="登录" id="submitid" class="btn btn-lg btn-primary btn-block">
       <label>${error}</label>
   </div>
