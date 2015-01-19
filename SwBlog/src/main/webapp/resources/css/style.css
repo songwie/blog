@@ -58,9 +58,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	border: 0;
 	font-size: 100%;
 	vertical-align: baseline;
-}
+	}
 body {
 	line-height: 1;
+	background :url('../img/background.jpg');
+	zoom:1 /*触发IE下块级元素*/
+	filter:alpha(opacity=50);
+	-moz-opacity:0.85;
+	opacity:0.85;
 }
 ol,
 ul {
