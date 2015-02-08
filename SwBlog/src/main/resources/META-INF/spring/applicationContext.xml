@@ -18,6 +18,7 @@ http://www.springframework.org/schema/task  http://www.springframework.org/schem
 http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
 ">
     <import resource="classpath*:META-INF/spring/applicationContext-database.xml"/>
+    <import resource="classpath*:META-INF/spring/applicationContext-jms.xml"/>
 
     <context:property-placeholder location="classpath*:META-INF/spring/*.properties"/>
     <context:spring-configured/>
