@@ -12,20 +12,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:/META-INF/spring/applicationContext*.xml")
 @ActiveProfiles(profiles = "dev")
-public class TestJms {
+public class TestTopicJms {
 
 	@Autowired
 	Environment env;
 
 	@Autowired
-	@Qualifier("queueMessageProducer")
-	JmsSender  queueJmsProducer;
+	@Qualifier("topicMessageProducer")
+	JmsSender topicJmsProducer;
 
 	@Test
 	public void testJms(){
-		queueJmsProducer.send("{a:'ss'}");
 
-		//topicJmsProducer.send("{a:'sssssssssssssss'}");
+		topicJmsProducer.send("{a:'sssssssssssssss'}");
 
     }
 }

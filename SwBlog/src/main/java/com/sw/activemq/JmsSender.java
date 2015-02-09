@@ -5,14 +5,10 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
-public class JmsProducer {
-	@Autowired
-	@Qualifier("jmsTemplate")
+public class JmsSender {
 	private JmsTemplate jmsTemplate;
 
 	private Destination destination ;
@@ -32,6 +28,12 @@ public class JmsProducer {
 	}
 	public void setDestination(Destination destination) {
 		this.destination = destination;
+	}
+	public JmsTemplate getJmsTemplate() {
+		return jmsTemplate;
+	}
+	public void setJmsTemplate(JmsTemplate jmsTemplate) {
+		this.jmsTemplate = jmsTemplate;
 	}
 
 }

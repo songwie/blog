@@ -27,26 +27,47 @@
 	</bean>
 	<bean class="org.springframework.jms.core.JmsTemplate" id="jmsTemplate">
 		<property name="connectionFactory" ref="cachingConnectionFactory" />
-		<property name="defaultDestination" ref="QUEUE" />
+		<property name="defaultDestination" ref="TOPIC" />
+		<property name="pubSubDomain" value="true" />
+        <property name="deliveryMode" value="1"/>
+        <property name="pubSubNoLocal" value="false"/>
 	</bean>
-	<amq:topic name="TOPIC" physicalName="JMS-TOPIC" />
-	<amq:queue name="QUEUE" physicalName="JMS-QUEUE" />
-    <bean id="topicMessageProducer" class="com.sw.activemq.JmsProducer">
-        <property name="destination" ref="TOPIC" />
-    </bean>
-    <bean id="queueMessageProducer" class="com.sw.activemq.JmsProducer">
-        <property name="destination" ref="QUEUE" />
-    </bean>
-    <jms:listener-container connection-factory="jmsFactory" destination-type="queue">
-        <jms:listener destination="TOPIC"
-                      method="onMessage"
-                      ref="jmsQueueListener" />
-    </jms:listener-container>
+	<bean class="org.springframework.jms.core.JmsTemplate" id="jmsTemplate2">
+		<property name="connectionFactory" ref="cachingConnectionFactory" />
+		<property name="defaultDestination" ref="QUEUE" />
+		<property name="pubSubDomain" value="false" />
+        <property name="deliveryMode" value="1"/>
+        <property name="pubSubNoLocal" value="false"/>
+	</bean>
 
-    <jms:listener-container connection-factory="jmsFactory" destination-type="topic">
-        <jms:listener destination="QUEUE"
-                      method="onMessage"
-                      ref="jmsTopicListener" />
+	<bean id="TOPIC" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg index="0" value="TOPIC" />
+    </bean>
+    <bean id="QUEUE" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg index="0" value="QUEUE" />
+    </bean>
+
+    <bean id="topicMessageProducer" class="com.sw.activemq.JmsSender">
+        <property name="destination" ref="TOPIC" />
+        <property name="jmsTemplate" ref="jmsTemplate" />
+    </bean>
+    <bean id="queueMessageProducer" class="com.sw.activemq.JmsSender">
+        <property name="destination" ref="QUEUE" />
+        <property name="jmsTemplate" ref="jmsTemplate2" />
+    </bean>
+
+    <!-- <bean id="listenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="concurrentConsumers" value="1" />
+        <property name="connectionFactory" ref="jmsFactory" />
+        <property name="destinationName" value="TOPIC" />
+        <property name="messageListener" ref="jmsTopicListener" />
+        <property name="pubSubNoLocal" value="false"></property>
+    </bean> -->
+    <jms:listener-container connection-factory="jmsFactory" destination-type="topic" >
+        <jms:listener destination="TOPIC" method="onMessage" ref="jmsTopicListener" />
+    </jms:listener-container>
+    <jms:listener-container connection-factory="jmsFactory" destination-type="queue" >
+        <jms:listener destination="QUEUE" method="onMessage" ref="jmsQueueListener" />
     </jms:listener-container>
 
     <bean id="jmsQueueListener"  class="com.sw.activemq.JmsListener"/>
