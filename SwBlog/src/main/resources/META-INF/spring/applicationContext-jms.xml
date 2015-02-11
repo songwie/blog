@@ -17,6 +17,9 @@
 		<property name="connectionFactory">
 			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
 				<property name="brokerURL" value="tcp://121.40.121.133:61616" />
+				<property name="userName" value="username" />
+				<property name="password" value="password" />
+				<property name="useAsyncSend" value="true" />
 			</bean>
 		</property>
 	</bean>
