@@ -13,7 +13,7 @@
 		http://www.springframework.org/schema/jms
 		http://www.springframework.org/schema/jms/spring-jms-3.1.xsd">
 
-	<bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
+	<!-- <bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
 		<property name="connectionFactory">
 			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
 				<property name="brokerURL" value="tcp://121.40.121.133:61616" />
@@ -59,13 +59,13 @@
         <property name="jmsTemplate" ref="jmsTemplate2" />
     </bean>
 
-    <!-- <bean id="listenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+    <bean id="listenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="concurrentConsumers" value="1" />
         <property name="connectionFactory" ref="jmsFactory" />
         <property name="destinationName" value="TOPIC" />
         <property name="messageListener" ref="jmsTopicListener" />
         <property name="pubSubNoLocal" value="false"></property>
-    </bean> -->
+    </bean>
     <jms:listener-container connection-factory="jmsFactory" destination-type="topic" >
         <jms:listener destination="TOPIC" method="onMessage" ref="jmsTopicListener" />
     </jms:listener-container>
@@ -75,5 +75,5 @@
 
     <bean id="jmsQueueListener"  class="com.sw.activemq.JmsListener"/>
     <bean id="jmsTopicListener"  class="com.sw.activemq.JmsListener"/>
-
+ -->
 </beans>

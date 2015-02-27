@@ -18,13 +18,33 @@ http://www.springframework.org/schema/task  http://www.springframework.org/schem
 http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
 ">
     <import resource="classpath*:META-INF/spring/applicationContext-database.xml"/>
-    <import resource="classpath*:META-INF/spring/applicationContext-jms.xml"/>
+    <!-- <import resource="classpath*:META-INF/spring/applicationContext-jms.xml"/> -->
 
     <context:property-placeholder location="classpath*:META-INF/spring/*.properties"/>
     <context:spring-configured/>
     <aop:aspectj-autoproxy/>
     <!-- spring 启动时扫描包 -->
     <context:component-scan base-package="com.sw"></context:component-scan>
+
+    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+        <property name="config">
+            <bean class="com.google.code.kaptcha.util.Config">
+                <constructor-arg>
+                    <props>
+                        <prop key="kaptcha.border">no</prop>
+                        <prop key="kaptcha.border.color">105,179,90</prop>
+                        <prop key="kaptcha.textproducer.font.color">blue</prop>
+                        <prop key="kaptcha.image.width">150</prop>
+                        <prop key="kaptcha.textproducer.font.size">45</prop>
+                        <prop key="kaptcha.image.height">40</prop>
+                        <prop key="kaptcha.session.key">KAPTCHA_SESSION_KEY</prop>
+                        <prop key="kaptcha.textproducer.char.length">4</prop>
+                        <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+                    </props>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
 
     <bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller" id="jaxbMarshaller">
         <property name="packagesToScan" value="com.sw.blog.model"> </property>

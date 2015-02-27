@@ -155,8 +155,16 @@
 								 <input id="reply_contactid" name="contact" size="300" type="text">
 								 <span class="required"></span>
 								</p>
+								<p class="comment-form-url"><label for="url">验证码</label>
+								 <img src="${home}/captcha/captcha" onclick="location.replace()">
+								</p>
+								<p class="comment-form-url"><label for="url"></label>
+								 <input id="reply_code" name="reply_code" size="30" type="text">
+								 <span class="required" ></span>
+								</p>
 							</div>
 						<p class="form-submit">
+						    <label><font color="red">${error}</font></label>
 							<input name="submit" id="submit" value="发表回复" type="submit">
 							<span class="required"></span>
 							<input name="comment_post_ID" value="${articleid}" id="comment_post_ID" type="hidden">

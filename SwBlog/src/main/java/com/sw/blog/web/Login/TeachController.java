@@ -47,6 +47,19 @@ public class TeachController {
     public String articleDetails(Model model, HttpServletRequest request,@PathVariable ("id")String id){
         System.out.println("************articleDetails*************************");
 
+        String uri = request.getRequestURI();//返回请求行中的资源名称
+        String url = request.getRequestURL().toString();//获得客户端发送请求的完整url
+        String ip = request.getRemoteAddr();//返回发出请求的IP地址
+        String params = request.getQueryString();//返回请求行中的参数部分
+        String host=request.getRemoteHost();//返回发出请求的客户机的主机名
+        int port =request.getRemotePort();//返回发出请求的客户机的端口号。
+        System.out.println(ip);
+        System.out.println(url);
+        System.out.println(uri);
+        System.out.println(params);
+        System.out.println(host);
+        System.out.println(port);
+
         //查询文章
         Map<String, Object> article = articleService.getArticle(id);
         List list = new ArrayList();
