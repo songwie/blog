@@ -156,7 +156,7 @@
 								 <span class="required"></span>
 								</p>
 								<p class="comment-form-url"><label for="url">验证码</label>
-								 <img src="${home}/captcha/captcha" onclick="location.replace()">
+								 <img src="${home}/checkcodeimg" onclick="location.replace()">
 								</p>
 								<p class="comment-form-url"><label for="url"></label>
 								 <input id="reply_code" name="reply_code" size="30" type="text">

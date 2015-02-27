@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 
-@RequestMapping("/captcha")
 @Controller
 public class CaptchaImageCreateController {
 
@@ -25,7 +24,7 @@ public class CaptchaImageCreateController {
 		this.captchaProducer = captchaProducer;
 	}
 
-	@RequestMapping("/captcha")
+	@RequestMapping("/checkcodeimg")
 	public ModelAndView getCaptchaImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		response.setDateHeader("Expires", 0);
