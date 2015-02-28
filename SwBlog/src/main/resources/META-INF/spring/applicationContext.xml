@@ -39,7 +39,7 @@ http://www.springframework.org/schema/cache http://www.springframework.org/schem
                         <prop key="kaptcha.image.height">40</prop>
                         <prop key="kaptcha.session.key">KAPTCHA_SESSION_KEY</prop>
                         <prop key="kaptcha.textproducer.char.length">4</prop>
-                        <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+                        <!-- <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop> -->
                     </props>
                 </constructor-arg>
             </bean>
