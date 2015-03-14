@@ -44,7 +44,7 @@ public class ArticleDao {
 	        sql+=" and ( t.title like concat('%',:search,'%') or t.article_content like concat('%',:search,'%') ) ";
 		}
 
-		sql+=" order by t.istop desc,t.level asc,t.create_time desc ";
+		sql+=" order by t.title,t.create_time desc ";
 
 		Query query = entityManager.createNativeQuery(sql);
 
@@ -249,7 +249,7 @@ public class ArticleDao {
 	        sql+=" and ( t.title like concat('%',:search,'%') or t.article_content like concat('%',:search,'%') ) ";
 		}
 
-        sql+=" order by b.id,t.create_time desc ";
+        sql+=" order by t.title,t.create_time desc ";
 
 		Query query = entityManager.createNativeQuery(sql);
 
