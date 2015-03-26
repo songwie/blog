@@ -58,14 +58,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	border: 0;
 	font-size: 100%;
 	vertical-align: baseline;
-	}
+}
 body {
 	line-height: 1;
-	background :url('../img/background.jpg');
-	zoom:1 /*触发IE下块级元素*/
-	filter:alpha(opacity=50);
-	-moz-opacity:0.85;
-	opacity:0.85;
 }
 ol,
 ul {
@@ -204,7 +199,7 @@ article.format-link footer.entry-meta,
 article.format-status footer.entry-meta {
 	font-size: 11px;
 	font-size: 0.785714286rem;
-	line-height: 2.181818182;
+	line-height: 1.181818182;
 }
 
 /* Form fields, general styles first */
@@ -1072,9 +1067,9 @@ img.aligncenter,
 .site-content article {
 	border-bottom: 1px dashed #ccc;/*4px double #ededed;*/
 	margin-bottom: 72px;
-	margin-bottom: 4.142857143rem;
+	margin-bottom: 0.742857143rem;
 	padding-bottom: 24px;
-	padding-bottom: 1.714285714rem;
+	padding-bottom: 0.214285714rem;
 	word-wrap: break-word;
 	-webkit-hyphens: auto;
 	-moz-hyphens: auto;
@@ -1086,10 +1081,10 @@ img.aligncenter,
 }
 footer.entry-meta {
 	margin-top: 24px;
-	margin-top: 1.714285714rem;
+	margin-top: 1.014285714rem;
 	font-size: 13px;
 	font-size: 0.928571429rem;
-	line-height: 1.846153846;
+	line-height: 1.046153846;
 	color: #757575;
 }
 .single-author .entry-meta .by-author {
@@ -1261,7 +1256,7 @@ article.format-quote .entry-content blockquote {
 /* Status posts */
 .format-status .entry-header {
 	margin-bottom: 24px;
-	margin-bottom: 1.714285714rem;
+	margin-bottom: 1.014285714rem;
 }
 .format-status .entry-header header {
 	display: inline-block;
@@ -1706,10 +1701,6 @@ img#wpstats {
 	.site-content {
 		float: left;
 		width: 65.104166667%;
-	}
-	.site-contentall {
-		float: left;
-		width: 100%;
 	}
 	body.template-front-page .site-content,
 	body.attachment .site-content,
