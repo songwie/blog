@@ -34,50 +34,71 @@ http://www.springframework.org/schema/cache http://www.springframework.org/schem
     </bean>
 
 	<beans profile="prod">
-	    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+	    <bean class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" id="dataSource">
 	        <property name="driverClassName" value="${database.driverClassName}"/>
 	        <property name="url" value="${database.url}"/>
 	        <property name="username" value="${database.username}"/>
 	        <property name="password" value="${database.password}"/>
-	        <property name="testOnBorrow" value="true"/>
-	        <property name="testOnReturn" value="true"/>
-	        <property name="testWhileIdle" value="true"/>
-	        <property name="timeBetweenEvictionRunsMillis" value="1800000"/>
 	        <property name="numTestsPerEvictionRun" value="3"/>
-	        <property name="minEvictableIdleTimeMillis" value="1800000"/>
-	        <property name="validationQuery" value="SELECT 1"/>
+	        <property name="filters" value="stat" />
+			<property name="maxActive" value="20" />
+			<property name="initialSize" value="1" />
+			<property name="maxWait" value="60000" />
+			<property name="minIdle" value="1" />
+			<property name="timeBetweenEvictionRunsMillis" value="60000" />
+			<property name="minEvictableIdleTimeMillis" value="300000" />
+			<property name="validationQuery" value="SELECT 'x'" />
+			<property name="testWhileIdle" value="true" />
+			<property name="testOnBorrow" value="false" />
+			<property name="testOnReturn" value="false" />
+			<property name="poolPreparedStatements" value="true" />
+			<property name="maxPoolPreparedStatementPerConnectionSize" value="50" />
 	    </bean>
     </beans>
 
     <beans profile="test">
-	    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+	    <bean class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" id="dataSource">
 	        <property name="driverClassName" value="${test.database.driverClassName}"/>
 	        <property name="url" value="${test.database.url}"/>
 	        <property name="username" value="${test.database.username}"/>
 	        <property name="password" value="${test.database.password}"/>
-	        <property name="testOnBorrow" value="true"/>
-	        <property name="testOnReturn" value="true"/>
-	        <property name="testWhileIdle" value="true"/>
-	        <property name="timeBetweenEvictionRunsMillis" value="1800000"/>
 	        <property name="numTestsPerEvictionRun" value="3"/>
-	        <property name="minEvictableIdleTimeMillis" value="1800000"/>
-	        <property name="validationQuery" value="SELECT 1"/>
+	        <property name="filters" value="stat" />
+			<property name="maxActive" value="20" />
+			<property name="initialSize" value="1" />
+			<property name="maxWait" value="60000" />
+			<property name="minIdle" value="1" />
+			<property name="timeBetweenEvictionRunsMillis" value="60000" />
+			<property name="minEvictableIdleTimeMillis" value="300000" />
+			<property name="validationQuery" value="SELECT 'x'" />
+			<property name="testWhileIdle" value="true" />
+			<property name="testOnBorrow" value="false" />
+			<property name="testOnReturn" value="false" />
+			<property name="poolPreparedStatements" value="true" />
+			<property name="maxPoolPreparedStatementPerConnectionSize" value="50" />
 	    </bean>
     </beans>
 
     <beans profile="dev">
-	    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+	    <bean class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" id="dataSource">
 	        <property name="driverClassName" value="${dev.database.driverClassName}"/>
 	        <property name="url" value="${dev.database.url}"/>
 	        <property name="username" value="${dev.database.username}"/>
 	        <property name="password" value="${dev.database.password}"/>
-	        <property name="testOnBorrow" value="true"/>
-	        <property name="testOnReturn" value="true"/>
-	        <property name="testWhileIdle" value="true"/>
-	        <property name="timeBetweenEvictionRunsMillis" value="1800000"/>
 	        <property name="numTestsPerEvictionRun" value="3"/>
-	        <property name="minEvictableIdleTimeMillis" value="1800000"/>
-	        <property name="validationQuery" value="SELECT 1"/>
+	        <property name="filters" value="mergeStat,log4j" />
+			<property name="maxActive" value="20" />
+			<property name="initialSize" value="1" />
+			<property name="maxWait" value="60000" />
+			<property name="minIdle" value="1" />
+			<property name="timeBetweenEvictionRunsMillis" value="60000" />
+			<property name="minEvictableIdleTimeMillis" value="300000" />
+			<property name="validationQuery" value="SELECT 'x'" />
+			<property name="testWhileIdle" value="true" />
+			<property name="testOnBorrow" value="false" />
+			<property name="testOnReturn" value="false" />
+			<property name="poolPreparedStatements" value="true" />
+			<property name="maxPoolPreparedStatementPerConnectionSize" value="50" />
 	    </bean>
     </beans>
 
