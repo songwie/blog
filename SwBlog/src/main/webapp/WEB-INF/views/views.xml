@@ -21,6 +21,11 @@
       <put-attribute name="body" value="/about/about.jsp" />
   </definition>
 
+  <!-- 工具 -->
+  <definition name="util_view" extends="content">
+      <put-attribute name="body" value="/util/util.jsp" />
+  </definition>
+
   <!-- 技术区 -->
   <definition name="teach_view" extends="content">
       <put-attribute name="body" value="/teach/teachs.jsp" />

@@ -29,6 +29,7 @@
     <!-- <mvc:view-controller path="/" view-name="redirect:/page"/> -->
     <mvc:view-controller path="/uncaughtException"/>
     <mvc:view-controller path="/resourceNotFound"/>
+    <mvc:view-controller path="/util" view-name="util_view"/>
 
     <bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           id="messageSource"

@@ -29,6 +29,10 @@
                         <a href="${home}shuo">杂谈</a>
                     </li>
 
+                    <li class="page_item page-item-13">
+                        <a href="${home}/util">工具</a>
+                    </li>
+
                     <li class="page_item page-item-8">
                         <a href="${home}aboutme">关于作者</a>
                     </li>
