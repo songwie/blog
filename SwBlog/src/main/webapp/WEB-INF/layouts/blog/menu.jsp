@@ -30,7 +30,7 @@
                     </li>
 
                     <li class="page_item page-item-13">
-                        <a href="${home}util">工具</a>
+                        <a href="${home}myutil">工具</a>
                     </li>
 
                     <li class="page_item page-item-8">
